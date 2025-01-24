@@ -3,6 +3,7 @@ import type { Config } from 'tailwindcss';
 import { fontFamily } from 'tailwindcss/defaultTheme';
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -190,6 +191,18 @@ const config: Config = {
           'radial-gradient(at 21% 0%, hsla(289,30%,47%,0.07) 0px, transparent 50%),' +
           'radial-gradient(at 45% 0%, hsla(266,100%,68%,0.1) 0px, transparent 50%),' +
           'radial-gradient(at 60% 0%, hsla(62,100%,88%,0.09) 0px, transparent 50%)',
+        'auth-dark':
+          'radial-gradient(at 37% 100%, #3b3bba30 0px, transparent 50%),' +
+          'radial-gradient(at 61% 100%, #623d762b 0px, transparent 50%),' +
+          'radial-gradient(at 21% 0%, hsla(289,30%,47%,0.07) 0px, transparent 50%),' +
+          'radial-gradient(at 45% 0%, hsla(266,100%,68%,0.1) 0px, transparent 50%),' +
+          'radial-gradient(at 60% 0%, hsla(62,100%,88%,0.09) 0px, transparent 50%)',
+        'auth-light':
+          'radial-gradient(at 37% 100%, #3b3bba30 0px, transparent 50%),' +
+          'radial-gradient(at 61% 100%, #623d762b 0px, transparent 50%),' +
+          'radial-gradient(at 21% 0%, hsla(289,30%,47%,0.07) 0px, transparent 50%),' +
+          'radial-gradient(at 45% 0%, hsla(266,100%,68%,0.1) 0px, transparent 50%),' +
+          'radial-gradient(at 60% 0%, hsla(62,100%,88%,0.09) 0px, transparent 50%)',
         'auth-form':
           'linear-gradient(158deg,hsla(0,0%,100%,.06) 14.19%,hsla(0,0%,100%,0) 50.59%,hsla(0,0%,100%,0) 68.79%,hsla(0,0%,100%,.02) 105.18%)',
 
@@ -203,7 +216,8 @@ const config: Config = {
           '0px 6px 13px 0px rgba(5, 5, 5, 0.10), ' +
           '0px 6px 4px -4px rgba(5, 5, 5, 0.10), ' +
           '0px 5px 1.5px -4px rgba(5, 5, 5, 0.25)',
-        button: '2px 4px 16px 0 rgba(248, 248, 248, 0.06) inset',
+        button: '2px 4px 16px 0 rgba(0, 0, 0, 0.12) inset',
+        "button-dark": '2px 4px 16px 0 rgba(248, 248, 248, 0.06) inset',
         toggle:
           '0px 4px 4px 0px rgba(255, 255, 255, 0.05) inset, 0px 8px 16px -4px rgba(18, 18, 18, 0.20)',
         wrapper:
@@ -213,12 +227,18 @@ const config: Config = {
           ' 0px 6px 12px 0px rgba(5, 5, 5, 0.10),' +
           ' 0px 4px 4px -4px rgba(5, 5, 5, 0.10),' +
           '0px 0.5px 1.5px -4px rgba(5, 5, 5, 0.50)',
-        'auth-card':
+        'auth-card-dark':
           'inset 2px 4px 16px 0 hsla(0, 0%, 97%, .06),' +
           '0 24px 24px -16px rgba(5, 5, 5, .09),' +
           '0 6px 13px 0 rgba(5, 5, 5, .1),' +
           '0 6px 4px -4px rgba(5, 5, 5, .1),' +
           '0 5px 1.5px -4px rgba(5, 5, 5, .25)',
+        'auth-card':
+          'inset 2px 4px 16px 0 hsla(0, 0%, .3%, .26),' +
+          '0 24px 24px -16px rgba(255, 255, 255, 0.09),' +
+          '0 6px 13px 0 rgba(255, 255, 255, 0.1),' +
+          '0 6px 4px -4px rgba(255, 255, 255, 0.1),' +
+          '0 5px 1.5px -4px rgba(255, 255, 255, 0.25)',
         dropup:
           '0px 24px 32px -12px rgba(18, 18, 18, 0.10),' +
           '2px 4px 16px 0px rgba(248, 248, 248, 0.06) inset',

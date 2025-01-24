@@ -20,8 +20,14 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/alert-dialog';
+import { ToggleLanguage } from '@/components/toggleLanguage';
+import { ToggleTheme } from '@/components/toggleTheme';
 
 import styled from '@/styles/auth.module.css';
+import '@/utils/i18n';
+import { useTranslation } from 'react-i18next';
+import { useTheme } from 'next-themes';
+import { cn } from '@/lib';
 
 export default function RegisterView() {
     const router = useRouter();
@@ -34,6 +40,8 @@ export default function RegisterView() {
     const [usernameError, setUsernameError] = React.useState('');
     const [passwordError, setPasswordError] = React.useState('');
     const [loading, setLoading] = React.useState(false);
+    const { theme } = useTheme();
+    const { t } = useTranslation();
 
     const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -82,14 +90,22 @@ export default function RegisterView() {
         }
     };
     return (
-        <div className="bg-auth w-full h-svh flex flex-col justify-around items-center px-[2.5rem]">
-            <div id="stars" className={styled.stars}></div>
-            <div className="w-full p-[2.5rem] relative mx-auto md:max-w-[25.5rem] md:before:content-[''] md:before:absolute md:before:inset-0 md:before:rounded-button md:before:pointer-events-none md:before:border-[0.75rem] md:before:border-[#f7f7f780] md:before:opacity-[0.29] md:before:blur-[20px] md:before:bg-auth-form md:after:bg-[#363638] md:after:shadow-auth-card md:after:backdrop:blur-[50px] md:after:content-[''] md:after:absolute md:after:inset-0 md:after:rounded-button md:after:pointer-events-none">
+        <>
+        <head>
+            <title>{t('title register')}</title>
+        </head>
+        <div className="bg-auth-light bg-[#c1c1c1] dark:bg-auth w-full h-svh flex flex-col justify-around items-center px-[2.5rem]">
+            <div className='flex gap-4 absolute top-0 right-0 p-[1rem]'>
+              <ToggleLanguage />
+              <ToggleTheme />
+            </div>
+            <div id="stars" className={cn(styled.stars, theme === 'dark' ? styled.dark : styled.light)}></div>
+            <div className="w-full p-[2.5rem] relative mx-auto md:max-w-[26.5rem] md:before:content-[''] md:before:absolute md:before:inset-0 md:before:rounded-button md:before:pointer-events-none md:before:border-[0.75rem] dark:md:before:border-[#f7f7f780] md:before:border-[#000000] md:before:opacity-[0.29] md:before:blur-[20px] md:before:bg-auth-form dark:md:after:bg-[#363638] md:after:bg-[#dfdfdf] dark:md:after:shadow-auth-card-dark md:after:shadow-auth-card md:after:backdrop:blur-[50px] md:after:content-[''] md:after:absolute md:after:inset-0 md:after:rounded-button md:after:pointer-events-none">
                 <div className="relative z-[2]">
                     <div className="flex flex-col mb-[2.5rem] items-center gap-6">
                         <LogoSVG className="object-contain w-[150px]"/>
-                        <Typography level="h4" className="text-primary">
-                            Đăng ký Baso Spark
+                        <Typography level="h4" className="dark:text-primary text-surface-2">
+                            {t('Register to Baso Spark')}
                         </Typography>
                     </div>
                     <form onSubmit={handleRegister}>
@@ -97,8 +113,8 @@ export default function RegisterView() {
                             <DebounceInput
                                 type="text"
                                 name="firstName"
-                                placeholder="Họ và tên đệm"
-                                className="w-full bg-neutral2-5 placeholder:text-tertiary base text-primary text-sm px-5 py-4 rounded-xl transition border-[1.5px] border-transparent focus:border-neutral2-10"
+                                placeholder={t('first name')}
+                                className="w-full dark:bg-neutral2-5 bg-neutral2-50 dark:placeholder:text-tertiary placeholder:text-surface-3 base dark:text-primary text-surface-2 text-sm px-5 py-4 rounded-xl transition border-[1.5px] border-transparent dark:focus:border-neutral2-10 focus:border-neutral2-40"
                                 value={firstName}
                                 onChange={(value: string) => setFirstName(value)}
                             />
@@ -110,8 +126,8 @@ export default function RegisterView() {
                             <DebounceInput
                                 type="text"
                                 name="lastName"
-                                placeholder="Tên"
-                                className="w-full bg-neutral2-5 placeholder:text-tertiary base text-primary text-sm px-5 py-4 rounded-xl transition border-[1.5px] border-transparent focus:border-neutral2-10"
+                                placeholder={t('last name')}
+                                className="w-full dark:bg-neutral2-5 bg-neutral2-50 dark:placeholder:text-tertiary placeholder:text-surface-3 base dark:text-primary text-surface-2 text-sm px-5 py-4 rounded-xl transition border-[1.5px] border-transparent dark:focus:border-neutral2-10 focus:border-neutral2-40"
                                 value={lastName}
                                 onChange={(value: string) => setLastName(value)}
                             />
@@ -123,8 +139,8 @@ export default function RegisterView() {
                             <DebounceInput
                                  type="text"
                                  name="username"
-                                 placeholder="Tên Đăng nhập"
-                                 className="w-full bg-neutral2-5 placeholder:text-tertiary base text-primary text-sm px-5 py-4 rounded-xl transition border-[1.5px] border-transparent focus:border-neutral2-10"
+                                 placeholder={t('username')}
+                                 className="w-full dark:bg-neutral2-5 bg-neutral2-50 dark:placeholder:text-tertiary placeholder:text-surface-3 base dark:text-primary text-surface-2 text-sm px-5 py-4 rounded-xl transition border-[1.5px] border-transparent dark:focus:border-neutral2-10 focus:border-neutral2-40"
                                  value={username}
                                  onChange={(value: string) => setUsername(value)}
                             />
@@ -136,8 +152,8 @@ export default function RegisterView() {
                             <DebounceInput
                                  type="password"
                                  name="password"
-                                 placeholder="Mật khẩu"
-                                 className="w-full bg-neutral2-5 placeholder:text-tertiary base text-primary text-sm px-5 py-4 rounded-xl transition border-[1.5px] border-transparent focus:border-neutral2-10"
+                                 placeholder={t('password')}
+                                 className="w-full dark:bg-neutral2-5 bg-neutral2-50 dark:placeholder:text-tertiary placeholder:text-surface-3 base dark:text-primary text-surface-2 text-sm px-5 py-4 rounded-xl transition border-[1.5px] border-transparent dark:focus:border-neutral2-10 focus:border-neutral2-40"
                                  value={password}
                                  onChange={(value: string) => setPassword(value)}
                             />
@@ -153,8 +169,8 @@ export default function RegisterView() {
                                 className="w-full base px-[2rem] py-[0.875rem]"
                                 disabled={loading}
                                 child={
-                                    <Typography level="base2sm" className="text-tertiary">
-                                        {loading ? 'Đang tải...' : 'Đăng ký'}
+                                    <Typography level="base2sm" className="dark:text-tertiary text-surface-2">
+                                        {loading ? t('loading') : t('sign up')}
                                     </Typography>
                                 }
                             />
@@ -167,8 +183,8 @@ export default function RegisterView() {
                                         child={
                                             <div className="flex items-center gap-3 justify-center">
                                                 <GoogleSVG className="w-5 h-5"/>
-                                                <Typography level="base2sm" className="text-secondary">
-                                                    Đăng nhập bằng Google
+                                                <Typography level="base2sm" className="dark:text-secondary text-surface-2">
+                                                    {t('sign in with google')}
                                                 </Typography>
                                             </div>
                                         }
@@ -176,25 +192,25 @@ export default function RegisterView() {
                                 </AlertDialogTrigger>
                                 <AlertDialogContent>
                                     <AlertDialogHeader>
-                                        <AlertDialogTitle><LogoSVG className="w-[30px]"/>Baso Spark</AlertDialogTitle>
+                                        <AlertDialogTitle><LogoSVG className="w-[30px] h-[30px]"/>Baso Spark</AlertDialogTitle>
                                     </AlertDialogHeader>
                                     <AlertDialogDescription>
-                                        Hiện tại tính năng này chưa được hỗ trợ
+                                        {t('nosupport')}
                                     </AlertDialogDescription>
                                     <AlertDialogFooter>
-                                        <AlertDialogCancel>Đóng</AlertDialogCancel>
+                                        <AlertDialogCancel>{t('close')}</AlertDialogCancel>
                                     </AlertDialogFooter>
                                 </AlertDialogContent>
                             </AlertDialog>
 
                             <Typography
                                 level="captionr"
-                                className="opacity-80 flex items-center gap-2 text-secondary justify-center"
-                            >
-                                Bạn đã có tài khoản?
+                                className="opacity-80 flex items-center gap-2 dark:text-secondary text-surface-2 justify-center"
+                                >
+                                {t('haveaccount')}
                                 <a href="/login" className="opacity-100 font-semibold">
                                 <Typography level="captionsm" className="opacity-100">
-                                    Đăng nhập, tại đây!
+                                    {t('loginfree')}
                                 </Typography>
                                 </a>
                             </Typography>
@@ -203,5 +219,6 @@ export default function RegisterView() {
                 </div>
             </div>
         </div>
+        </>
     )
 }

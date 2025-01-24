@@ -21,8 +21,14 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from '@/components/alert-dialog';
+import { ToggleLanguage } from '@/components/toggleLanguage';
+import { ToggleTheme } from '@/components/toggleTheme';
 
 import styled from '@/styles/auth.module.css';
+import '@/utils/i18n';
+import { useTranslation } from 'react-i18next';
+import { useTheme } from 'next-themes';
+import { cn } from '@/lib';
 
 export default function LoginView() {
     const { setToken } = useAuth();
@@ -32,6 +38,8 @@ export default function LoginView() {
     const [usernameError, setUsernameError] = React.useState('');
     const [passwordError, setPasswordError] = React.useState('');
     const [loading, setLoading] = React.useState(false);
+    const { theme } = useTheme();
+    const { t } = useTranslation();
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -72,15 +80,22 @@ export default function LoginView() {
 
     return (
         <>
-          <div className="bg-auth w-full h-svh flex justify-center items-center">
-            <div id="stars" className={styled.stars}></div>
-            <div className="w-full p-[2.5rem] relative mx-auto md:max-w-[26.5rem] md:before:content-[''] md:before:absolute md:before:inset-0 md:before:rounded-button md:before:pointer-events-none md:before:border-[0.75rem] md:before:border-[#f7f7f780] md:before:opacity-[0.29] md:before:blur-[20px] md:before:bg-auth-form md:after:bg-[#363638] md:after:shadow-auth-card md:after:backdrop:blur-[50px] md:after:content-[''] md:after:absolute md:after:inset-0 md:after:rounded-button md:after:pointer-events-none">
+          <head>
+            <title>{t('title login')}</title>
+          </head>
+          <div className="bg-auth-light bg-[#c1c1c1] w-full h-svh flex justify-center items-center dark:bg-auth">
+            <div className='flex gap-4 absolute top-0 right-0 p-[1rem]'>
+              <ToggleLanguage />
+              <ToggleTheme />
+            </div>
+            <div id="stars" className={cn(styled.stars, theme === 'dark' ? styled.dark : styled.light)}></div>
+            <div className="w-full p-[2.5rem] relative mx-auto md:max-w-[26.5rem] md:before:content-[''] md:before:absolute md:before:inset-0 md:before:rounded-button md:before:pointer-events-none md:before:border-[0.75rem] dark:md:before:border-[#f7f7f780] md:before:border-[#000000] md:before:opacity-[0.29] md:before:blur-[20px] md:before:bg-auth-form dark:md:after:bg-[#363638] md:after:bg-[#dfdfdf] dark:md:after:shadow-auth-card-dark md:after:shadow-auth-card md:after:backdrop:blur-[50px] md:after:content-[''] md:after:absolute md:after:inset-0 md:after:rounded-button md:after:pointer-events-none">
               <div className="relative z-[2]">
                 <div className="flex flex-col mb-[2.5rem] items-center gap-6">
                   <LogoSVG className="object-contain w-[150px]" />
     
-                  <Typography level="h4" className="text-primary">
-                  Đăng nhập Baso Spark
+                  <Typography level="h4" className="dark:text-primary text-surface-2">
+                    {t('Login to Baso Spark')}
                   </Typography>
                 </div>
                 <form onSubmit={handleLogin}>
@@ -88,9 +103,9 @@ export default function LoginView() {
                     <DebounceInput
                       type="text"
                       name="username"
-                      placeholder="Tên đăng nhập"
+                      placeholder={t('username')}
                       value={username}
-                      className="w-full bg-neutral2-5 placeholder:text-tertiary base text-primary text-sm px-5 py-4 rounded-xl transition border-[1.5px] border-transparent focus:border-neutral2-10"
+                      className="w-full dark:bg-neutral2-5 bg-neutral2-50 dark:placeholder:text-tertiary placeholder:text-surface-3 base dark:text-primary text-surface-2 text-sm px-5 py-4 rounded-xl transition border-[1.5px] border-transparent dark:focus:border-neutral2-10 focus:border-neutral2-40"
                       onChange={(value: string) => setUsername(value)}
                     />
                     {usernameError && (
@@ -101,10 +116,10 @@ export default function LoginView() {
                     <DebounceInput
                       type="password"
                       name="password"
-                      placeholder="Mật khẩu"
+                      placeholder={t('password')}
                       value={password}
                       debounce={0}
-                      className="w-full bg-neutral2-5 placeholder:text-tertiary base text-primary text-sm px-5 py-4 rounded-xl transition border-[1.5px] border-transparent focus:border-neutral2-10"
+                      className="w-full dark:bg-neutral2-5 bg-neutral2-50 dark:placeholder:text-tertiary placeholder:text-surface-3 base dark:text-primary text-surface-2 text-sm px-5 py-4 rounded-xl transition border-[1.5px] border-transparent dark:focus:border-neutral2-10 focus:border-neutral2-40"
                       onChange={(value: string) => setPassword(value)}
                     />
                     {passwordError && (
@@ -117,11 +132,11 @@ export default function LoginView() {
                   <div className="flex flex-col gap-3">
                     <Button
                       type="submit"
-                      className={`w-full base px-[2rem] py-[0.875rem] ${loading ? 'bg-neutral2-5 opacity-50' : 'opacity-100'}`}
+                      className={`w-full base px-[2rem] py-[0.875rem] ${loading ? 'bg-neutral2-5  opacity-50' : 'opacity-100'}`}
                       disabled={loading}
                       child={
-                        <Typography level="base2sm" className="text-tertiary">
-                          {loading ? 'Đang tải...' : 'Đăng Nhập'}
+                        <Typography level="base2sm" className="dark:text-tertiary text-surface-2">
+                          {loading ? t('loading'): t('login')}
                         </Typography>
                       }
                     />
@@ -136,9 +151,9 @@ export default function LoginView() {
                               <GoogleSVG className="w-5 h-5" />
                               <Typography
                                 level="base2sm"
-                                className="text-secondary"
+                                className="dark:text-secondary text-surface-2"
                               >
-                                Đăng nhập bằng Google
+                                {t('sign in with Google')}
                               </Typography>
                             </div>
                           }
@@ -146,25 +161,25 @@ export default function LoginView() {
                       </AlertDialogTrigger>
                       <AlertDialogContent>
                         <AlertDialogHeader>
-                          <AlertDialogTitle><LogoSVG className="w-[30px]"/>Baso Spark</AlertDialogTitle>
+                          <AlertDialogTitle><LogoSVG className="w-[30px] h-[30px]"/>Baso Spark</AlertDialogTitle>
                         </AlertDialogHeader>
                         <AlertDialogDescription>
-                          Hiện tại tính năng này chưa được hỗ trợ
+                          {t('nosupport')}
                         </AlertDialogDescription>
                         <AlertDialogFooter>
-                          <AlertDialogCancel>Đóng</AlertDialogCancel>
+                          <AlertDialogCancel>{t('close')}</AlertDialogCancel>
                         </AlertDialogFooter>
                       </AlertDialogContent>
                     </AlertDialog>
     
                     <Typography
                       level="captionr"
-                      className="opacity-80 flex items-center gap-2 text-secondary justify-center"
+                      className="opacity-80 flex items-center gap-2 dark:text-secondary text-surface-2 justify-center"
                     >
-                      Bạn chưa có tài khoản?
+                      {t('noaccount')}
                       <a href="/register" className="opacity-100 font-semibold">
                         <Typography level="captionsm" className="opacity-100">
-                            Đăng ký miễn phí!
+                            {t('registerfree')}
                         </Typography>
                       </a>
                     </Typography>

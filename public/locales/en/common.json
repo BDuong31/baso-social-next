@@ -1,0 +1,20 @@
+{
+  "title login": "Login | Baso Spark",
+  "title register": "Register | Baso Spark",
+  "Login to Baso Spark": "Login to Baso Spark",
+  "sign in with google": "Sign in with Google", 
+  "login": "Login",
+  "Register to Baso Spark": "Register to Baso Spark",
+  "first name": "First Name",
+  "last name": "Last Name",
+  "username": "Username",
+  "password": "Password",
+  "loading": "Loading...",
+  "nosupport": "Currently this feature is not supported",
+  "close": "Close",
+  "noaccount": "Don't have an account?",
+  "haveaccount": "Already have an account?",
+  "registerfree": "Sign up, it's free",
+  "loginfree": "Login, here!",
+  "sign up": "Sign up"
+}
