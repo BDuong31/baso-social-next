@@ -1,5 +1,7 @@
+import { useTheme } from "next-themes";
 
 function Bubbles1({ className }: { className?: string }) {
+  const { theme, systemTheme } = useTheme();
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -148,8 +150,8 @@ function Bubbles1({ className }: { className?: string }) {
           y2="47.116"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.173306" stopColor="white" stopOpacity="0" />
-          <stop offset="1" stopColor="white" stopOpacity="0.3" />
+          <stop offset="0.173306" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity="0" />
+          <stop offset="1" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity={theme === "dark" ? "0.3" : theme==='light' ? "0.6" : systemTheme === "dark" ? "0.3" : "0.6" } />
         </linearGradient>
         <linearGradient
           id="paint1_linear_12214_113049"
@@ -159,8 +161,8 @@ function Bubbles1({ className }: { className?: string }) {
           y2="71.116"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.173306" stopColor="white" stopOpacity="0" />
-          <stop offset="1" stopColor="white" stopOpacity="0.3" />
+          <stop offset="0.173306" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity="0" />
+          <stop offset="1" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity={theme === "dark" ? "0.3" : theme==='light' ? "0.6" : systemTheme === "dark" ? "0.3" : "0.6" }  />
         </linearGradient>
         <linearGradient
           id="paint2_linear_12214_113049"
@@ -170,8 +172,8 @@ function Bubbles1({ className }: { className?: string }) {
           y2="4.11603"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.173306" stopColor="white" stopOpacity="0" />
-          <stop offset="1" stopColor="white" stopOpacity="0.3" />
+          <stop offset="0.173306" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity="0" />
+          <stop offset="1" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity={theme === "dark" ? "0.3" : theme==='light' ? "0.6" : systemTheme === "dark" ? "0.3" : "0.6" }  />
         </linearGradient>
         <linearGradient
           id="paint3_linear_12214_113049"
@@ -181,8 +183,8 @@ function Bubbles1({ className }: { className?: string }) {
           y2="38.116"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.173306" stopColor="white" stopOpacity="0" />
-          <stop offset="1" stopColor="white" stopOpacity="0.3" />
+          <stop offset="0.173306" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity="0" />
+          <stop offset="1" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity={theme === "dark" ? "0.3" : theme==='light' ? "0.6" : systemTheme === "dark" ? "0.3" : "0.6" }  />
         </linearGradient>
         <linearGradient
           id="paint4_linear_12214_113049"
@@ -192,8 +194,8 @@ function Bubbles1({ className }: { className?: string }) {
           y2="78.116"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.173306" stopColor="white" stopOpacity="0" />
-          <stop offset="1" stopColor="white" stopOpacity="0.3" />
+          <stop offset="0.173306" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity="0" />
+          <stop offset="1" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity={theme === "dark" ? "0.3" : theme==='light' ? "0.6" : systemTheme === "dark" ? "0.3" : "0.6" }  />
         </linearGradient>
         <linearGradient
           id="paint5_linear_12214_113049"
@@ -203,8 +205,8 @@ function Bubbles1({ className }: { className?: string }) {
           y2="56.8333"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="white" stopOpacity="0.3" />
-          <stop offset="0.826694" stopColor="white" stopOpacity="0" />
+          <stop stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity={theme === "dark" ? "0.3" : theme==='light' ? "0.6" : systemTheme === "dark" ? "0.3" : "0.6" }  />
+          <stop offset="0.826694" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity="0" />
         </linearGradient>
         <linearGradient
           id="paint6_linear_12214_113049"
@@ -214,8 +216,8 @@ function Bubbles1({ className }: { className?: string }) {
           y2="15.3333"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="white" stopOpacity="0.3" />
-          <stop offset="0.826694" stopColor="white" stopOpacity="0" />
+          <stop stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity={theme === "dark" ? "0.3" : theme==='light' ? "0.6" : systemTheme === "dark" ? "0.3" : "0.6" }  />
+          <stop offset="0.826694" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity="0" />
         </linearGradient>
         <linearGradient
           id="paint7_linear_12214_113049"
@@ -225,8 +227,8 @@ function Bubbles1({ className }: { className?: string }) {
           y2="62.6667"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="white" stopOpacity="0.3" />
-          <stop offset="0.826694" stopColor="white" stopOpacity="0" />
+          <stop stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity={theme === "dark" ? "0.3" : theme==='light' ? "0.6" : systemTheme === "dark" ? "0.3" : "0.6" }  />
+          <stop offset="0.826694" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity="0" />
         </linearGradient>
         <linearGradient
           id="paint8_linear_12214_113049"
@@ -236,8 +238,8 @@ function Bubbles1({ className }: { className?: string }) {
           y2="6.83333"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.173306" stopColor="white" stopOpacity="0" />
-          <stop offset="1" stopColor="white" stopOpacity="0.3" />
+          <stop offset="0.173306" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity="0" />
+          <stop offset="1" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity={theme === "dark" ? "0.3" : theme==='light' ? "0.6" : systemTheme === "dark" ? "0.3" : "0.6" }  />
         </linearGradient>
         <linearGradient
           id="paint9_linear_12214_113049"
@@ -247,8 +249,8 @@ function Bubbles1({ className }: { className?: string }) {
           y2="19.7232"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.173306" stopColor="white" stopOpacity="0" />
-          <stop offset="1" stopColor="white" stopOpacity="0.3" />
+          <stop offset="0.173306" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity="0" />
+          <stop offset="1" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity={theme === "dark" ? "0.3" : theme==='light' ? "0.6" : systemTheme === "dark" ? "0.3" : "0.6" }  />
         </linearGradient>
         <linearGradient
           id="paint10_linear_12214_113049"
@@ -258,8 +260,8 @@ function Bubbles1({ className }: { className?: string }) {
           y2="27.7232"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.173306" stopColor="white" stopOpacity="0" />
-          <stop offset="1" stopColor="white" stopOpacity="0.3" />
+          <stop offset="0.173306" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity="0" />
+          <stop offset="1" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity={theme === "dark" ? "0.3" : theme==='light' ? "0.6" : systemTheme === "dark" ? "0.3" : "0.6" }  />
         </linearGradient>
         <linearGradient
           id="paint11_linear_12214_113049"
@@ -269,8 +271,8 @@ function Bubbles1({ className }: { className?: string }) {
           y2="56.7232"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.173306" stopColor="white" stopOpacity="0" />
-          <stop offset="1" stopColor="white" stopOpacity="0.3" />
+          <stop offset="0.173306" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity="0" />
+          <stop offset="1" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity={theme === "dark" ? "0.3" : theme==='light' ? "0.6" : systemTheme === "dark" ? "0.3" : "0.6" }  />
         </linearGradient>
         <linearGradient
           id="paint12_linear_12214_113049"
@@ -280,8 +282,8 @@ function Bubbles1({ className }: { className?: string }) {
           y2="55.2321"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.173306" stopColor="white" stopOpacity="0" />
-          <stop offset="1" stopColor="white" stopOpacity="0.3" />
+          <stop offset="0.173306" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity="0" />
+          <stop offset="1" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity={theme === "dark" ? "0.3" : theme==='light' ? "0.6" : systemTheme === "dark" ? "0.3" : "0.6" }  />
         </linearGradient>
         <linearGradient
           id="paint13_linear_12214_113049"
@@ -291,8 +293,8 @@ function Bubbles1({ className }: { className?: string }) {
           y2="55.2321"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.173306" stopColor="white" stopOpacity="0" />
-          <stop offset="1" stopColor="white" stopOpacity="0.3" />
+          <stop offset="0.173306" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity="0" />
+          <stop offset="1" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity={theme === "dark" ? "0.3" : theme==='light' ? "0.6" : systemTheme === "dark" ? "0.3" : "0.6" }  />
         </linearGradient>
         <linearGradient
           id="paint14_linear_12214_113049"
@@ -302,8 +304,8 @@ function Bubbles1({ className }: { className?: string }) {
           y2="22.8333"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.173306" stopColor="white" stopOpacity="0" />
-          <stop offset="1" stopColor="white" stopOpacity="0.3" />
+          <stop offset="0.173306" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity="0" />
+          <stop offset="1" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity={theme === "dark" ? "0.3" : theme==='light' ? "0.6" : systemTheme === "dark" ? "0.3" : "0.6" }  />
         </linearGradient>
         <linearGradient
           id="paint15_linear_12214_113049"
@@ -313,8 +315,8 @@ function Bubbles1({ className }: { className?: string }) {
           y2="32.8333"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.173306" stopColor="white" stopOpacity="0" />
-          <stop offset="1" stopColor="white" stopOpacity="0.3" />
+          <stop offset="0.173306" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity="0" />
+          <stop offset="1" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity={theme === "dark" ? "0.3" : theme==='light' ? "0.6" : systemTheme === "dark" ? "0.3" : "0.6" }  />
         </linearGradient>
         <linearGradient
           id="paint16_linear_12214_113049"
@@ -324,8 +326,8 @@ function Bubbles1({ className }: { className?: string }) {
           y2="6.80404"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="white" stopOpacity="0.3" />
-          <stop offset="0.826694" stopColor="white" stopOpacity="0" />
+          <stop stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity={theme === "dark" ? "0.3" : theme==='light' ? "0.6" : systemTheme === "dark" ? "0.3" : "0.6" }  />
+          <stop offset="0.826694" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity="0" />
         </linearGradient>
         <linearGradient
           id="paint17_linear_12214_113049"
@@ -335,8 +337,8 @@ function Bubbles1({ className }: { className?: string }) {
           y2="33.75"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="white" stopOpacity="0.3" />
-          <stop offset="0.826694" stopColor="white" stopOpacity="0" />
+          <stop stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity={theme === "dark" ? "0.3" : theme==='light' ? "0.6" : systemTheme === "dark" ? "0.3" : "0.6" }  />
+          <stop offset="0.826694" stopColor={theme === 'dark' ? 'white' : theme === 'light' ? 'black' : systemTheme ==='dark' ? 'white' : 'black'} stopOpacity="0" />
         </linearGradient>
       </defs>
     </svg>

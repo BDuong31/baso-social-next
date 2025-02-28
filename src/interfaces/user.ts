@@ -17,6 +17,8 @@ export interface IUserProfile {
   username: string;
   firstName: string;
   lastName: string;
+  email: string;
+  phone: string;
   role: string;
   bio?: string;
   websiteUrl?: string;

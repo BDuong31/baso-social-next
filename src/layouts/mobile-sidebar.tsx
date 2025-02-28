@@ -16,6 +16,7 @@ import { NAVIGATION_ITEMS } from './navigation-items';
 import NavigationBar from './navigationbar';
 
 import { USER_AVATAR_PLACEHOLDER } from '@/constant/contants';
+import { useTranslation } from 'react-i18next';
 
 //-------------------------------------------------------------------------
 
@@ -25,7 +26,8 @@ type MobileSidebarProps = {
 };
 
 const MobileSidebar = ({ onClose, className }: MobileSidebarProps) => {
-  const navItems = NAVIGATION_ITEMS;
+  const navItems = NAVIGATION_ITEMS();
+  const { t } = useTranslation();
 
   const { userProfile: user } = useUserProfile();
 
@@ -39,7 +41,7 @@ const MobileSidebar = ({ onClose, className }: MobileSidebarProps) => {
   return (
     <section
       className={cn(
-        'md:hidden flex flex-col fixed z-99 inset-0 bg-surface-2 before:fixed before:z-0 before:inset-0 before:bg-[#313131]',
+        'md:hidden flex flex-col fixed z-99 inset-0 dark:bg-surface-2 bg-[#e8e8e8e5] before:fixed before:z-0 before:inset-0 dark:before:bg-[#313131] before:bg-[#e8e8e8e5]',
         className
       )}
     >
@@ -63,14 +65,14 @@ const MobileSidebar = ({ onClose, className }: MobileSidebarProps) => {
               <span className="flex-grow">
                 <Typography
                   level="base2sm"
-                  className="text-secondary opacity-80 select-none"
+                  className="dark:text-secondary text-surface-2 opacity-80 select-none"
                 >
                   {currentUser.fullname}
                 </Typography>
                 <br />
                 <Typography
                   level="captionr"
-                  className="text-tertiary opacity-45 select-none"
+                  className="dark:text-tertiary text-surface opacity-45 select-none"
                 >
                   @{currentUser.nickname}
                 </Typography>
@@ -89,19 +91,19 @@ const MobileSidebar = ({ onClose, className }: MobileSidebarProps) => {
             </div>
           </div>
         )}
-        <p className="text-tertiary text-[10px] text-center">
+        <p className="dark:text-tertiary text-black text-[10px] text-center">
           Code by{' '}
           <Link target="_blank" href="https://200lab.io/">
-            @<span className="text-[#278e4f]">200</span>
-            <span className="text-[#2170a1]">Lab</span>
+            @<span className="text-[#278e4f]"></span>
+            <span className="text-[#2170a1]">Baso</span>
           </Link>
         </p>
         <Button
           className={'px-6 py-3 w-full'}
           onClick={() => {}}
           child={
-            <Typography level="base2sm" className="text-secondary select-none">
-              Post
+            <Typography level="base2sm" className="dark:text-secondary text-surface-2 select-none">
+              {t('post')}
             </Typography>
           }
         />

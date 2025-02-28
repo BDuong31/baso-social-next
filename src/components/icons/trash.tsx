@@ -1,7 +1,9 @@
+import { useTheme } from 'next-themes';
 export default function TrashIcon() {
+  const { theme } = useTheme();
   return (
     <svg
-      className="h-6 w-6 stroke-secondary"
+      className="h-6 w-6 dark:stroke-[#F8F8F8] stroke-[#1F1F1F]"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="none"
@@ -11,7 +13,6 @@ export default function TrashIcon() {
         strokeWidth="1.5"
         strokeLinecap="round"
         strokeLinejoin="round"
-        stroke="rgba(248, 248, 248, 0.7)"
       />
     </svg>
   );

@@ -1,5 +1,6 @@
 import { AuthProvider } from '@/context/auth-context';
 import QueryProvider from '@/providers/query-provider/query-provider';
+import { SessionProvider } from "next-auth/react";
 import React from 'react';
 
 interface AppProvidersProps {
@@ -8,8 +9,10 @@ interface AppProvidersProps {
 
 export default function AppProviders({ children }: AppProvidersProps) {
     return (
-        <AuthProvider>
-            <QueryProvider>{children}</QueryProvider>
-        </AuthProvider>
+            <AuthProvider>
+                <SessionProvider>
+                    <QueryProvider>{children}</QueryProvider>
+                </SessionProvider>
+            </AuthProvider>
     );
 }

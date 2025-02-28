@@ -4,7 +4,7 @@ import { Button } from '@/components/button';
 import { Typography } from '@/components/typography';
 import { AddIcon } from '@/components/icons';
 
-import { IUserSimple } from '@/interface/user';
+import { IUserSimple } from '@/interfaces/user';
 
 import {cn} from '@/lib/utils';
 
@@ -28,7 +28,7 @@ export default function ProfileCard({
     <Link href={`/profile/${user.id}`}>
       <div
         className={cn(
-          'bg-neutral2-2 rounded-[1.25rem] p-3 flex flex-col justify-center gap-3 hover:bg-neutral2-5 focus:border-[3px] focus:border-neutral2-10',
+          'dark:bg-neutral2-2 bg-neutral1-30 rounded-[1.25rem] p-3 flex flex-col justify-center gap-3 dark:hover:bg-neutral2-5 hover:bg-neutral1-50 focus:border-[3px] focus:border-neutral2-10',
           className
         )}
       >
@@ -41,10 +41,10 @@ export default function ProfileCard({
             />
           </div>
           <div className="grow flex flex-col gap-1">
-            <Typography level="base2sm" className="text-primary">
+            <Typography level="base2sm" className="dark:text-primary text-surface-3">
               {user.firstName} {user.lastName}
             </Typography>
-            <Typography className="text-tertiary opacity-80" level="captionr">
+            <Typography className="dark:text-tertiary text-surface opacity-80" level="captionr">
               @{user.username}
             </Typography>
           </div>

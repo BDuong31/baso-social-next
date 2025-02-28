@@ -6,11 +6,12 @@ import { EmptyContent } from '../empty-content';
 import { Post } from '../post';
 import { Typography } from '../typography';
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
 //-----------------------------------------------------------------------------------------------
 
 interface NewFeedProps {
-  contentType: 'post' | 'media';
+  contentType: string;
   data: IPost[];
   loading?: boolean;
   err?: string | null;
@@ -25,6 +26,7 @@ export default function ActivityFeed({
   err,
   onDeleted,
 }: NewFeedProps) {
+  const { t } = useTranslation();
   const posts = (
     <ul className="w-full h-full mt-3">
       {data.map((post) => (
@@ -54,14 +56,14 @@ export default function ActivityFeed({
   return (
     <div className="">
       {loading ? (
-        <div>Loading posts...</div>
+        <div>{t('loading post')}</div>
       ) : err ? (
-        <div className="text-white">Error loading posts: {err}</div>
+        <div className="text-white">{t('error loading posts')} {err}</div>
       ) : data.length === 0 ? (
         <EmptyContent
           content={
             <Typography level="base2sm" className="text-tertiary">
-              This user hasn&apos;t posted anything yet
+              {t(`this user has't posted anything yet`)}
             </Typography>
           }
         />

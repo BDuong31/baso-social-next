@@ -8,7 +8,7 @@ type Props = {
 export default function Loader({ className }: Props) {
   return (
     <svg
-      className={cn('h-6 w-6 stroke-secondary', className)}
+      className={cn('h-6 w-6 dark:stroke-secondary stroke-surface-2', className)}
       width={24}
       height={24}
       viewBox="0 0 24 24"

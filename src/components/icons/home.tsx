@@ -4,7 +4,7 @@ export default function HomeIcon({ className }: { className?: string }) {
   return (
     <svg
       id="home-icon"
-      className={cn('w-6 h-6 fill-secondary ', className)}
+      className={cn('w-6 h-6 dark:fill-secondary fill-[#1f1f1f] ', className)}
       width="24"
       height="24"
       viewBox="0 0 24 24"

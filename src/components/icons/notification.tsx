@@ -7,7 +7,7 @@ export default function NotificationIcon({
 }) {
   return (
     <svg
-      className={cn('h-6 w-6 stroke-secondary', className)}
+      className={cn('h-6 w-6 dark:stroke-secondary stroke-[#1f1f1f]', className)}
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

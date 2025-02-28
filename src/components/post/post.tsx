@@ -24,8 +24,8 @@ import { BookmarkIcon, CommentIcon, HeartIcon, MoreIcon } from '../icons';
 import UpdatePost from '../new-post/update-post';
 import { Portal } from '../portal';
 import { Typography } from '../typography';
-import { MoreOptions } from './components/more-options';
-import { ReactItem } from './react-item/react-item';
+import { MoreOptions, MoreReport } from './components';
+import { ReactItem } from './react-item';
 import {
   AlertDialog,
   AlertDialogContent,
@@ -35,6 +35,7 @@ import {
   AlertDialogDescription,
 } from '../alert-dialog';
 import { Button } from '../button';
+import { useTranslation } from 'react-i18next';
 
 //-------------------------------------------------------------------------
 
@@ -47,6 +48,8 @@ interface PostProps {
   type?: string;
   openMoreOptionsId?: string | null;
   setOpenMoreOptionsId?: (id: string | null) => void;
+  openMoreReportId?: string | null;
+  setOpenMoreReportId?: (id: string | null) => void;
 }
 
 export default function Post({
@@ -57,6 +60,8 @@ export default function Post({
   onDeleteSuccess,
   openMoreOptionsId,
   setOpenMoreOptionsId,
+  openMoreReportId,
+  setOpenMoreReportId
 }: PostProps) {
   const { userProfile } = useUserProfile();
   const [localData, setLocalData] = React.useState(data);
@@ -65,6 +70,7 @@ export default function Post({
 
   const isPostType = 'isFeatured' in data || 'hasSaved' in data;
 
+  const { t } = useTranslation();
   const handleLikeClick = async () => {
     if (!isPostType) return;
 
@@ -99,6 +105,11 @@ export default function Post({
   const handleMoreOptions = () => {
     setOpenMoreOptionsId?.(openMoreOptionsId === data.id ? null : data.id);
   };
+
+  const handleMoreReport = () => {
+    console.log("test")
+    setOpenMoreReportId?.(openMoreReportId === data.id ? null : data.id);
+  }
 
   const handleBookmarkClick = async () => {
     if (!isPostType) return;
@@ -178,7 +189,7 @@ export default function Post({
   return (
     <div
       className={cn(
-        'relative w-full h-fit flex flex-col rounded-[1.25rem] p-3 bg-neutral2-2 gap-3 [transition:background_.2s] hover:bg-neutral2-5',
+        'relative w-full h-fit flex flex-col rounded-[1.25rem] p-3 dark:bg-neutral2-2 bg-neutral1-30 gap-3 [transition:background_.2s] dark:hover:bg-neutral2-5 hover:bg-neutral1-60',
         className
       )}
     >
@@ -197,24 +208,27 @@ export default function Post({
             >
               <Typography
                 level="base2m"
-                className="text-primary font-bold justify-self-start opacity-80 mr-4"
+                className="dark:text-primary text-surface-3 font-bold justify-self-start opacity-80 mr-4"
               >
                 {localData.author?.firstName} {localData.author?.lastName}
               </Typography>
             </Link>
             <Typography
               level="captionr"
-              className="text-tertiary justify-self-start grow opacity-45"
+              className="dark:text-tertiary text-surface justify-self-start grow opacity-45"
             >
               {relativeTime(new Date(localData.createdAt))}
             </Typography>
-
             {data.author.id === (userProfile as IUserProfile).id && (
               <MoreIcon onClick={handleMoreOptions} />
             )}
+
+            { data.author.id !== (userProfile as IUserProfile).id && (
+              <MoreIcon onClick={handleMoreReport}/>
+            )}
           </div>
           <Link href={`/posts/${localData.id}`} className="cursor-pointer">
-            <Typography level="body2r" className="text-secondary opacity-80">
+            <Typography level="body2r" className="dark:text-secondary text-surface-2 opacity-80">
               {localData.content}
             </Typography>
           </Link>
@@ -239,6 +253,9 @@ export default function Post({
             onEdit={() => setIsEdit(true)}
             onDelete={handleConfirmDelete}
           />
+        )}
+        {openMoreReportId === data.id && (
+          <MoreReport/>
         )}
       </div>
 
@@ -292,11 +309,11 @@ export default function Post({
       <AlertDialog open={isConfirm} onOpenChange={handleCancelDelete}>
         <AlertDialogContent className="max-w-md">
           <AlertDialogHeader>
-            <AlertDialogTitle>Delete post</AlertDialogTitle>
+            <AlertDialogTitle>{t('delete post')}</AlertDialogTitle>
           </AlertDialogHeader>
           <AlertDialogDescription>
-            <Typography level="base2sm" className="text-tertiary">
-              Are you sure you want to delete this post?
+            <Typography level="base2sm" className="dark:text-tertiary text-surface">
+              {t('are you sure you want to delete this post')}
             </Typography>
           </AlertDialogDescription>
 
@@ -305,8 +322,8 @@ export default function Post({
               onClick={handleCancelDelete}
               className="w-full sm:w-auto"
               child={
-                <Typography level="base2sm" className="p-3 text-tertiary">
-                  Cancel
+                <Typography level="base2sm" className="p-3 dark:text-tertiary text-surface">
+                  {t('cancel')}
                 </Typography>
               }
             />
@@ -315,8 +332,8 @@ export default function Post({
               onClick={handleDeletePost}
               className="w-full sm:w-auto"
               child={
-                <Typography level="base2sm" className="p-3 text-tertiary">
-                  Confirm
+                <Typography level="base2sm" className="p-3 dark:text-tertiary text-surface">
+                  {t('confirm')}
                 </Typography>
               }
             />

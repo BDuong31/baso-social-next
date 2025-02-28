@@ -25,7 +25,7 @@ export default function ReactItem({
             {icon}
             <Typography
                 level="captionsm"
-                className="opacity-80 text-secondary group-hover:text-primary"
+                className="opacity-80 dark:text-secondary text-surface dark:group-hover:text-primary group-hover:text-surface-3"
             >
                 {value}
             </Typography>

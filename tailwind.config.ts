@@ -177,8 +177,10 @@ const config: Config = {
         'linear-mask':
           'linear-gradient(180deg, rgba(18, 18, 18, 0.20) 0%, rgba(18, 18, 18, 0.20) 85%, rgba(18, 18, 18, 0.00) 100%)',
 
-        'linear-card':
+        'linear-card-dark:':
           'linear-gradient(165deg, rgba(255, 255, 255, 0.80) 0%, rgba(255, 255, 255, 0.40) 30%, rgba(255, 255, 255, 0) 60%, rgba(255, 255, 255, 0.10) 100%)',
+        'linear-card':
+          'linear-gradient(165deg, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.40) 30%, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.10) 100%)',
         'linear-red':
           'linear-gradient(0deg, #BD3027 0%, #BD3027 100%, rgba(40, 40, 40, 0.70))',
         'linear-hover':

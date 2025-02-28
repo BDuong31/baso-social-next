@@ -1,13 +1,15 @@
 import { cn } from '@/lib/utils';
+import { useTheme } from 'next-themes';
 
 export default function ChevronDownSmall({
   className,
 }: {
   className?: string;
 }) {
+  const { theme } = useTheme();
   return (
     <svg
-      className={cn('h-3 w-3', className)}
+      className={cn('h-3 w-3 dark:stroke-[#F8F8F8] stroke-[#1F1F1F]', className)}
       viewBox="0 0 12 12"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -19,7 +21,6 @@ export default function ChevronDownSmall({
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-          stroke='rgba(248, 248, 248, 0.7)'
         />
       </g>
     </svg>

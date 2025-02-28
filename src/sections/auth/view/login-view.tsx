@@ -9,7 +9,7 @@ import { loginSchema } from '../data';
 
 import { Button } from '@/components/button';
 import { LogoSVG, GoogleSVG } from '@/components/icons';
-import { DebounceInput } from '@/components/input';
+import { DebouncedInput } from '@/components/input';
 import { Typography } from '@/components/typography';
 import {
     AlertDialog,
@@ -29,6 +29,7 @@ import '@/utils/i18n';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from 'next-themes';
 import { cn } from '@/lib';
+import { signIn, useSession } from 'next-auth/react';
 
 export default function LoginView() {
     const { setToken } = useAuth();
@@ -40,6 +41,47 @@ export default function LoginView() {
     const [loading, setLoading] = React.useState(false);
     const { theme } = useTheme();
     const { t } = useTranslation();
+    const { data: session} = useSession();
+
+    React.useEffect(() => {
+        const loginGoogle = async () => {
+        if (session) {
+            console.log(session);
+            setLoading(true);
+            const avatar = session.user?.image;
+            const firstName = session.user?.lastName;
+            const lastName = session.user?.firstName;
+            const username = session.user?.username;
+            const email = session.user?.email;
+            const password = "000000";
+
+            try {
+                const token = await googleLogin({
+                    avatar,
+                    firstName,
+                    lastName,
+                    username,
+                    email,
+                    password
+                });
+
+                if (token && token.data) {
+                    setToken(token.data);
+                    router.push('/');
+                }
+            } catch (err: any) {
+                if (err.response && err.response.data && err.response.data.message) {
+                    setPasswordError(err.response.data.message);
+                } else {
+                    setPasswordError('Đã có lỗi xảy ra, vui lòng thử lại sau');
+                }
+            } finally {
+                setLoading(false);
+            }
+        }}
+        loginGoogle();
+    }, [session]);
+    
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -80,9 +122,6 @@ export default function LoginView() {
 
     return (
         <>
-          <head>
-            <title>{t('title login')}</title>
-          </head>
           <div className="bg-auth-light bg-[#c1c1c1] w-full h-svh flex justify-center items-center dark:bg-auth">
             <div className='flex gap-4 absolute top-0 right-0 p-[1rem]'>
               <ToggleLanguage />
@@ -100,7 +139,7 @@ export default function LoginView() {
                 </div>
                 <form onSubmit={handleLogin}>
                   <div className="flex flex-col gap-[0.875rem] mb-[1.5rem]">
-                    <DebounceInput
+                    <DebouncedInput
                       type="text"
                       name="username"
                       placeholder={t('username')}
@@ -113,7 +152,7 @@ export default function LoginView() {
                         {usernameError}
                       </Typography>
                     )}
-                    <DebounceInput
+                    <DebouncedInput
                       type="password"
                       name="password"
                       placeholder={t('password')}
@@ -141,7 +180,7 @@ export default function LoginView() {
                       }
                     />
     
-                    <AlertDialog>
+                    {/* <AlertDialog>
                       <AlertDialogTrigger asChild>
                         <Button
                           type="button"
@@ -170,8 +209,20 @@ export default function LoginView() {
                           <AlertDialogCancel>{t('close')}</AlertDialogCancel>
                         </AlertDialogFooter>
                       </AlertDialogContent>
-                    </AlertDialog>
-    
+                    </AlertDialog>*/}
+                    <Button
+                        className="w-full px-[2rem] py-[0.875rem]"
+                        disabled={loading}
+                        child={
+                            <div className="flex items-center gap-3 justify-center">
+                                <GoogleSVG className="w-5 h-5"/>
+                                <Typography level="base2sm" className="dark:text-secondary text-surface-2">
+                                    {t('sign in with google')}
+                                </Typography>
+                            </div>
+                        }
+                        onClick={() => signIn("google")}
+                    />
                     <Typography
                       level="captionr"
                       className="opacity-80 flex items-center gap-2 dark:text-secondary text-surface-2 justify-center"

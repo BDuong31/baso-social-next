@@ -15,7 +15,7 @@ export default function MoreItem({ title, icon, onClick }: MoreItemProps) {
       className="w-full flex items-center justify-between gap-2 px-3 py-2.5 hover:bg-neutral2-10 rounded-[1rem] group">
       <Typography
         level="base2sm"
-        className="text-tertiary group-hover:text-primary"
+        className="dark:text-tertiary text-surface dark:group-hover:text-primary group-hover:text-surface-3 "
       >
         {title}
       </Typography>

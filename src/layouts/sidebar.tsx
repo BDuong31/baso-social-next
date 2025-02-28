@@ -29,6 +29,8 @@ import NavigationBar from './navigationbar';
 
 import { USER_AVATAR_PLACEHOLDER } from '@/constant/contants';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
+import { signOut, useSession } from 'next-auth/react';
 
 //-----------------------------------------------------------------------------------------------
 
@@ -41,9 +43,10 @@ export default function Sidebar({ className }: SidebarProps) {
   const unreadCount = useUnreadNoti();
   const [isExpanded, setIsExpanded] = React.useState(false);
   const [isCreatePost, setIsCreatePost] = React.useState(false);
-
-  const navItems = NAVIGATION_ITEMS.map((item) =>
-    item.title === 'Notifications'
+  const { t } = useTranslation();
+  
+  const navItems = NAVIGATION_ITEMS().map((item) =>
+    item.title === t('notification')
       ? { ...item, update: { status: true, count: unreadCount } }
       : item
   );
@@ -88,7 +91,7 @@ export default function Sidebar({ className }: SidebarProps) {
   return (
     <aside
       className={cn(
-        `group/sidebar flex flex-col h-screen bg-surface-3 transition-[width] duration-300 ease-in-out ${
+        `group/sidebar flex flex-col h-screen dark:bg-surface-3 bg-[#e8e8e8e5] transition-[width] duration-300 ease-in-out ${
           isExpanded ? 'w-70 2xl:w-80' : 'w-18'
         }`,
         className
@@ -111,7 +114,7 @@ export default function Sidebar({ className }: SidebarProps) {
                 }`}
                 onClick={toggleSidebar}
                 child={
-                  <ChevronRight className="h-6 w-6 stroke-secondary group-hover:stroke-primary group-active:stroke-primary group-[.disabled]:stroke-tertiary" />
+                  <ChevronRight className="h-6 w-6 dark:stroke-secondary stroke-[#1F1F1F] dark:group-hover:stroke-primary group-hover:stroke-[#1f1f1f] dark:group-active:stroke-primary dark:group-[.disabled]:stroke-tertiary group-active:stroke-[#1f1f1f] group-[.disabled]:stroke-[#1f1f1f]" />
                 }
               />
             </div>
@@ -122,7 +125,7 @@ export default function Sidebar({ className }: SidebarProps) {
             className={'p-2.5'}
             onClick={toggleSidebar}
             child={
-              <ExpandControl className="h-6 w-6 fill-secondary group-hover:fill-primary group-active:fill-primary group-[.disabled]:fill-tertiary" />
+              <ExpandControl className="h-6 w-6 dark:fill-secondary fill-[#1f1f1f] group-hover:fill-primary group-active:fill-primary group-[.disabled]:fill-tertiary" />
             }
           />
         )}
@@ -148,9 +151,9 @@ export default function Sidebar({ className }: SidebarProps) {
             isExpanded ? (
               <Typography
                 level="base2sm"
-                className="text-secondary select-none "
+                className="dark:text-secondary text-surface-2 select-none "
               >
-                Post
+                {t('post')}
               </Typography>
             ) : (
               <AddIcon />
@@ -158,11 +161,11 @@ export default function Sidebar({ className }: SidebarProps) {
           }
         />
       </section>
-      <p className="text-tertiary text-[10px] text-center mb-2">
+      <p className="dark:text-tertiary text-surface text-[10px] text-center mb-2">
         Code by{' '}
         <Link target="_blank" href="https://200lab.io/">
-          @<span className="text-[#278e4f] font-semibold">200</span>
-          <span className="text-[#2170a1] font-semibold">Lab</span>
+          @<span className="text-[#278e4f] font-semibold"></span>
+          <span className="text-[#2170a1] font-semibold">Baso</span>
         </Link>
       </p>
 
@@ -187,12 +190,16 @@ export function UserSection({ isExpanded, user }: UserSectionProps) {
   const [isMoreOptions, setIsMoreOptions] = React.useState(false);
   const auth = useAuth();
   const router = useRouter();
+  const { data: session } = useSession();
 
   const toggleMoreOptions = () => {
     setIsMoreOptions(!isMoreOptions);
   };
 
   const handleLogout = () => {
+    if (session) {
+      signOut();
+    }
     auth.setToken(null);
   };
 
@@ -209,14 +216,14 @@ export function UserSection({ isExpanded, user }: UserSectionProps) {
             <span className="flex-grow">
               <Typography
                 level="base2sm"
-                className="text-secondary opacity-80 select-none"
+                className="dark:text-secondary text-surface-2 opacity-80 select-none"
               >
                 {user.fullname}
               </Typography>
               <br />
               <Typography
                 level="captionr"
-                className="text-tertiary opacity-45 select-none"
+                className="dark:text-tertiary text-surface opacity-45 select-none"
               >
                 @{user.nickname}
               </Typography>

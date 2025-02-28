@@ -1,7 +1,11 @@
+import { useTheme } from "next-themes";
+
 export default function Upload() {
+  const { theme } = useTheme();
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
+      className="dark:stroke-[#F8F8F8] stroke-[#1F1F1F]"
       width="24"
       height="24"
       viewBox="0 0 24 24"
@@ -11,7 +15,6 @@ export default function Upload() {
         <path
           opacity="0.8"
           d="M12 3.75V15M12 3.75L16.5 8.25M12 3.75L7.5 8.25M20.25 12.75V17.25C20.25 18.9069 18.9069 20.25 17.25 20.25H6.75C5.09315 20.25 3.75 18.9069 3.75 17.25V12.75"
-          stroke="#F8F8F8"
           strokeOpacity="0.7"
           strokeWidth="1.5"
           strokeLinecap="round"

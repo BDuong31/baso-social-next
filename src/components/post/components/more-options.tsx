@@ -1,5 +1,6 @@
 import { TrashIcon, LockIcon } from '@/components/icons';
 import MoreItem from './more-item';
+import { useTranslation } from 'react-i18next';
 
 //--------------------------------------------------------------------------------------------------------
 
@@ -9,21 +10,22 @@ interface MoreOptionsProps {
 }
 
 export default function MoreOptions({ onEdit, onDelete }: MoreOptionsProps) {
+  const { t } = useTranslation();
   const _moreOptions = [
     {
-      title: 'Edit',
+      title: t('edit'),
       icon: <LockIcon />,
       onClick: onEdit,
     },
     {
-      title: 'Delete',
+      title: t('delete'),
       icon: <TrashIcon />,
       onClick: onDelete,
     },
   ];
 
   return (
-    <div className="absolute z-10 flex-col w-[15rem] p-2 bg-neutral3-70 shadow-dropup backdrop-blur-[32px] rounded-[1.5rem] top-[3rem] right-1">
+    <div className="absolute z-10 flex-col w-[15rem] p-2 dark:bg-neutral3-70  bg-neutral1-70 dark:shadow-dropup shadow-button backdrop-blur-[32px] rounded-[1.5rem] top-[3rem] right-1">
       {_moreOptions.map((item) => (
         <MoreItem
           key={item.title}

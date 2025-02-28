@@ -1,7 +1,7 @@
 'use client';
 import React from "react";
 import { SearchIcon } from '../icons';
-import { DebounceInput } from "../input";
+import { DebouncedInput } from "../input";
 import { cn } from "@/lib/utils";
 
 type SearchInputProps = {
@@ -20,20 +20,20 @@ const SearchInput = ({
   return (
     <form
       className={cn(
-        `grow p-2.5 rounded-full backdrop-blur-16 bg-neutral3-70 flex items-center gap-3`,
+        `grow p-2.5 rounded-full backdrop-blur-16 dark:bg-neutral3-70 bg-neutral1-70 flex items-center gap-3`,
         className
       )}
     >
       <button type="submit" className="rounded-full">
         <SearchIcon />
       </button>
-      <DebounceInput
+      <DebouncedInput
         type="text"
         value={search ?? ''}
         onChange={(value: string) => setSearch && setSearch(value)}
         placeholder={placeholder}
-        className="flex-1"
-      ></DebounceInput>
+        className="flex-1 "
+      ></DebouncedInput>
     </form>
   );   
 }

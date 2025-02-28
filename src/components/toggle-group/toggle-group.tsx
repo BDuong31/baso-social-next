@@ -32,7 +32,7 @@ const ToggleGroup: React.FC<ToggleGroupProps> = ({
     <div
       id="toggle-group"
       className={cn(
-        'w-full p-1 flex justify-between items-center bg-neutral3-60 rounded-[100px]',
+        'w-full p-1 flex justify-between items-center dark:bg-neutral3-60 bg-[#e8e8e899] rounded-[100px]',
         className
       )}
     >

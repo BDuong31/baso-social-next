@@ -15,3 +15,10 @@ export const chatRoomsSchema = z.object({
 });
 
 export type ChatRoom = z.infer<typeof chatRoomsSchema>;
+
+export const createChatRoomSchema = z.object({
+  creatorId: z.string(),
+  receiverId: z.string(),
+});
+
+export type CreateChatRoom = z.infer<typeof createChatRoomSchema>;

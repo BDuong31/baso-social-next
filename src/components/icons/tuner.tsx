@@ -1,7 +1,7 @@
 export default function Tuner() {
   return (
     <svg
-      className="h-6 w-6 stroke-tertiary group-hover/item:stroke-secondary"
+      className="h-6 w-6 dark:stroke-tertiary stroke-surface dark:group-hover/item:stroke-secondary group-hover/item:stroke-surface-2"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="none"

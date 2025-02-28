@@ -3,6 +3,7 @@ const nextConfig = {
   i18n: {
     locales: ['en', 'vi'],
     defaultLocale: 'en',
+    localeDetection: false,
   },
   images: {
     domains: [
@@ -13,6 +14,7 @@ const nextConfig = {
       'localhost',
       'dns.bento.showcase.200lab.io',
       'statics.cdn.200lab.io',
+      'lh3.googleusercontent.com',
     ],
   },
   output: 'standalone',

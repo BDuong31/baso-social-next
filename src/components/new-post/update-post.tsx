@@ -20,6 +20,7 @@ import { Button } from '../button';
 import { Dropdown } from '../dropdown';
 import { DebouncedInput } from '../input';
 import { SplashScreen } from '../loading-screen';
+import { EmojiButton } from './post-control';
 
 //-------------------------------------------------------------------------
 
@@ -137,12 +138,16 @@ export default function UpdatePost({
     }
   };
 
+  const handleEmojiSelect = (emoji: string) => {
+    setContent((prevContent) => prevContent + emoji);
+  };
+
   if (loading) return <SplashScreen />;
   if (error) return <div>{error}</div>;
   if (!post) return <div>Không tìm thấy bài đăng</div>;
 
   return (
-    <div className="fixed z-9999 w-full h-full top-0 left-0 bg-[#444444] z-100 md:bg-[#12121299] shadow-stack">
+    <div className="fixed z-9999 w-full h-full top-0 left-0 dark:bg-[#444444] bg-[#c1c1c1] z-100 dark:md:bg-[#12121299] md:bg-[#d9d9d9fc] shadow-stack">
       <div className="hidden md:block absolute top-2 right-2 z-20">
         <Button
           className="size-[40px] p-2.5"
@@ -150,7 +155,7 @@ export default function UpdatePost({
           onClick={onClose}
         />
       </div>
-      <div className="w-full h-full rounded-button shadow-button bg-[#282828b3] backdrop-blur-[50px] before:content-[''] before:absolute before:inset-0 before:rounded-button before:pointer-events-none before:border-[1.5px] before:border-[#ffffff1a] before:[mask-image:linear-gradient(175deg,#000,transparent_50%)] md:mx-auto md:w-[40rem] md:h-fit md:mt-[10%] md:rounded-button">
+      <div className="w-full h-full rounded-button shadow-button dark:bg-[#282828b3] bg-neutral1-70 backdrop-blur-[50px] before:content-[''] before:absolute before:inset-0 before:rounded-button before:pointer-events-none before:border-[1.5px] before:border-[#ffffff1a] before:[mask-image:linear-gradient(175deg,#000,transparent_50%)] md:mx-auto md:w-[40rem] md:h-fit md:mt-[10%] md:rounded-button">
         <div className="md:hidden w-full flex items-center justify-between p-3">
           <Button
             className="size-10 p-2.5"
@@ -158,7 +163,7 @@ export default function UpdatePost({
             onClick={onClose}
           />
           <Button
-            className="px-[1.5rem] py-[0.75rem] rounded-[2rem] text-secondary"
+            className="px-[1.5rem] py-[0.75rem] rounded-[2rem] dark:text-secondary text-surface-2"
             child={<Typography level="base2sm">Cập nhật bài đăng</Typography>}
           />
         </div>
@@ -223,6 +228,9 @@ export default function UpdatePost({
           </div>
 
           <div className="fixed bottom-4 w-fit mx-auto rounded-[1.25rem] p-2 flex gap-2 items-center bg-neutral2-3 z-20 md:p-3 md:w-full md:bg-transparent md:relative md:mx-0 md:justify-between md:bottom-0">
+            <EmojiButton
+              onEmojiSelect={handleEmojiSelect}
+            /> 
             <UploadImgButton
               fileInputRef={fileInputRef}
               setPreviewUrl={setPreviewUrl}
@@ -244,7 +252,7 @@ export default function UpdatePost({
             <Button
               disabled={!content.trim() || isUploading || isSubmitting}
               type="submit"
-              className="flex px-[1.5rem] py-[0.75rem] rounded-[2rem] text-secondary ml-auto disabled:opacity-50 disabled:cursor-not-allowed"
+              className="flex px-[1.5rem] py-[0.75rem] rounded-[2rem] dark:text-secondary  text-surface-2 ml-auto disabled:opacity-50 disabled:cursor-not-allowed"
               child={<Typography level="base2sm">Cập nhật</Typography>}
               onClick={handleSubmit}
             />

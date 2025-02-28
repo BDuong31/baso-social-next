@@ -1,3 +1,4 @@
+'use client';
 import type { Metadata } from 'next';
 import React from 'react';
 
@@ -5,6 +6,7 @@ import AppProviders from '@/providers/app-provider';
 import { ThemeProvider } from '@/providers/theme-provider/theme-provider';
 
 import './globals.css';
+import { SessionContext, SessionProvider } from 'next-auth/react';
 
 //-----------------------------------------------------------------------------------------------
 
@@ -19,15 +21,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="vi" suppressHydrationWarning>
-      <body className="min-h-screen block relative bg-cushion h-full w-full before:fixed before:inset-0">
+    <html lang="en" suppressHydrationWarning>
+      <body className="min-h-screen block relative dark:bg-cushion bg-secondary h-full w-full before:fixed before:inset-0">
         <ThemeProvider
           attribute="class"
           defaultTheme="system"
           enableSystem
           disableTransitionOnChange
         >
+          <SessionProvider>
           <AppProviders>{children}</AppProviders>
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>

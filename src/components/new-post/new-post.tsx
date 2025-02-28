@@ -20,6 +20,8 @@ import { Button } from '../button';
 import { Dropdown } from '../dropdown';
 import { DebouncedInput } from '../input';
 import { SplashScreen } from '../loading-screen';
+import { EmojiButton } from './post-control';
+import { useTranslation } from 'react-i18next';
 
 //----------------------------------------------------------------------------------
 
@@ -43,7 +45,7 @@ export default function NewPost({ onBack }: INewPostProps) {
 
   const [content, setContent] = React.useState<string>('');
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
-
+  const { t } = useTranslation();
   React.useEffect(() => {
     getTopics()
       .then((response) => {
@@ -133,11 +135,16 @@ export default function NewPost({ onBack }: INewPostProps) {
     }
   };
 
+  const handleEmojiSelect = (emoji: any) => {
+    console.log(emoji);
+    setContent(prevMessage => prevMessage + emoji);
+  };
+
   if (loading) return <SplashScreen />;
   if (error) return <div>{error}</div>;
 
   return (
-    <div className="fixed w-full h-full top-0 left-0 bg-[#444444] z-20 md:bg-[#12121299] shadow-stack">
+    <div className="fixed w-full h-full top-0 left-0 dark:bg-[#444444] bg-[#c1c1c1] z-20  dark:md:bg-[#12121299] md:bg-[#d9d9d9fc]  shadow-stack">
       <div className="hidden md:block absolute top-2 right-2 z-20">
         <Button
           className="size-[40px] p-2.5"
@@ -145,7 +152,7 @@ export default function NewPost({ onBack }: INewPostProps) {
           onClick={onBack}
         />
       </div>
-      <div className="w-full h-full relative shadow-button bg-[#282828b3] backdrop-blur-[50px] before:content-[''] before:absolute before:inset-0 before:pointer-events-none before:border-[1.5px] before:border-[#ffffff1a] before:[mask-image:linear-gradient(175deg,#000,transparent_50%)] md:mx-auto md:w-[40rem] md:h-[16rem] md:mt-[10%] md:rounded-button md:before:rounded-button ">
+      <div className="w-full h-full relative shadow-button dark:bg-[#282828b3] bg-neutral1-70 backdrop-blur-[50px] before:content-[''] before:absolute before:inset-0 before:pointer-events-none before:border-[1.5px] before:border-[#ffffff1a] before:[mask-image:linear-gradient(175deg,#000,transparent_50%)] md:mx-auto md:w-[40rem] md:h-[16rem] md:mt-[10%] md:rounded-button md:before:rounded-button ">
         <div className="md:hidden w-full flex items-center justify-between p-3">
           <Button
             className="size-10 p-2.5"
@@ -153,8 +160,8 @@ export default function NewPost({ onBack }: INewPostProps) {
             onClick={onBack}
           />
           <Button
-            className="px-[1.5rem] py-[0.75rem] rounded-[2rem] text-secondary"
-            child={<Typography level="base2sm">Đăng</Typography>}
+            className="px-[1.5rem] py-[0.75rem] rounded-[2rem] dark:text-secondary text-surface-2"
+            child={<Typography level="base2sm">{t('post')}</Typography>}
           />
         </div>
 
@@ -170,7 +177,7 @@ export default function NewPost({ onBack }: INewPostProps) {
               <div className="flex-1">
                 <DebouncedInput
                   type="text"
-                  placeholder="Bắt đầu một bài viết..."
+                  placeholder={t('start posts')}
                   value={content}
                   onChange={(value: string) => setContent(value)}
                 />
@@ -217,7 +224,9 @@ export default function NewPost({ onBack }: INewPostProps) {
           </div>
 
           <div className="fixed bottom-4 w-fit mx-auto rounded-[1.25rem] p-2 flex gap-2 items-center bg-neutral2-3 z-20 md:p-3 md:w-full md:bg-transparent md:relative md:mx-0 md:justify-between md:bottom-0">
-            {/* <EmojiButton /> */}
+            <EmojiButton
+              onEmojiSelect={handleEmojiSelect}
+            /> 
 
             <UploadImgButton
               fileInputRef={fileInputRef}
@@ -243,8 +252,8 @@ export default function NewPost({ onBack }: INewPostProps) {
             <Button
               disabled={!content.trim() || isUploading || isSubmitting}
               type="submit"
-              className="flex px-[1.5rem] py-[0.75rem] rounded-[2rem] text-secondary ml-auto disabled:opacity-50 disabled:cursor-not-allowed"
-              child={<Typography level="base2sm">Đăng</Typography>}
+              className="flex px-[1.5rem] py-[0.75rem] rounded-[2rem] dark:text-secondary  text-surface-2 ml-auto disabled:opacity-50 disabled:cursor-not-allowed"
+              child={<Typography level="base2sm">{t('post')}</Typography>}
               onClick={handleSubmit}
             />
           </div>

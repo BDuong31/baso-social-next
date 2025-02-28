@@ -14,13 +14,13 @@ const TabBarItem: React.FC<TabBarItemProps> = ({
   return (
     <button
       className={`flex-1 font-semibold flex justify-center cursor-pointer p-[1.5px] ${
-        isActive ? 'rounded-[100px] bg-stroke25 shadow-toggle' : ''
+        isActive ? 'rounded-[100px] bg-stroke25 dark:shadow-toggle shadow-button' : ''
       }`}
       onClick={onClick}
     >
       <Typography
         level="base2sm"
-        className={`select-none opacity-80 w-full h-full rounded-[100px] px-[22.5px] py-[6.5px] text-center ${isActive ? 'text-primary opacity-100 bg-neutral2-5' : 'text-secondary'}`}
+        className={`select-none opacity-80 w-full h-full rounded-[100px] px-[22.5px] py-[6.5px] text-center ${isActive ? 'dark:text-primary text-surface-3 opacity-100 dark:bg-neutral2-5 bg-neutral1-50' : 'dark:text-secondary text-surface-2'}`}
       >
         {label}
       </Typography>

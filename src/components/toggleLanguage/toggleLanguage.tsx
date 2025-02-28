@@ -10,21 +10,22 @@ import "@/utils/i18n";
 const Switch = () => {
   const { i18n } = useTranslation();
   const [isChecked, setIsChecked] = useState(false);
-  const [mounted, setMounted] = useState(false); // Đảm bảo chỉ chạy trên client
-  const { theme} = useTheme();
+  const [mounted, setMounted] = useState(false); 
+  const { theme } = useTheme();
+
   React.useEffect(() => {
-    setMounted(true); // Đánh dấu rằng component đã được render trên client
+    setMounted(true);
     setIsChecked(i18n.language === 'en'); 
   }, [i18n.language]);
 
   const handleChange = () => {
     const newLang = isChecked ? 'vi' : 'en';
     setIsChecked(!isChecked);
-    i18n.changeLanguage(newLang); // Thay đổi ngôn ngữ
+    i18n.changeLanguage(newLang);
   };
 
   if (!mounted) {
-    return null; // Render null khi SSR
+    return null; 
   }
 
   return (

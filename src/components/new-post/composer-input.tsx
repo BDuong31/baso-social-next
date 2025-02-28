@@ -23,6 +23,7 @@ import { Button } from '../button';
 import { Dropdown } from '../dropdown';
 import { CloseIcon } from '../icons';
 import { SplashScreen } from '../loading-screen';
+import { useTranslation } from 'react-i18next';
 
 //----------------------------------------------------------------------------------
 
@@ -59,6 +60,7 @@ export default function ComposerInput({
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
 
+  const { t } = useTranslation();
   React.useEffect(() => {
     getTopics()
       .then((response) => {
@@ -66,8 +68,8 @@ export default function ComposerInput({
         setSelectedTopic(response.data[0].id);
       })
       .catch((error) => {
-        console.error('Lỗi tìm nạp chủ đề:', error);
-        setError('Tải chủ đề không thành công.');
+        console.error('Error fetching topics:', error);
+        setError('Failed load topics.');
       })
       .finally(() => {
         setLoading(false);
@@ -150,9 +152,9 @@ export default function ComposerInput({
     } catch (error) {
       if (error instanceof z.ZodError) {
         const errorMessage = error.errors.map((err) => err.message).join(', ');
-        console.log(`Lỗi xác thực: ${errorMessage}`);
+        console.log(`Validation error: ${errorMessage}`);
       } else {
-        console.log('Không thể tạo bài đăng. Vui lòng thử lại.');
+        console.log('Failed to create post. Please try again.');
       }
     } finally {
       setIsSubmitting(false);
@@ -184,7 +186,7 @@ export default function ComposerInput({
   return (
     <div
       className={cn(
-        `w-full flex gap-3 h-[64px] z-10 overflow-hidden items-center justify-between p-3 absolute left-0 bottom-0 rounded-[1.25rem] ${isInputFocused ? ' h-fit flex-col justify-start bg-neutral3-70 hover:bg-neutral2-5' : 'flex-row bg-neutral2-2'} transition-all duration-[0.2s]`,
+        `w-full flex gap-3 h-[64px] z-10 overflow-hidden items-center justify-between p-3 absolute left-0 bottom-0 rounded-[1.25rem] ${isInputFocused ? ' h-fit flex-col justify-start dark:bg-neutral3-70 bg-neutral1-50 dark:hover:bg-neutral2-5 hover:bg-neutral1-30 ' : 'flex-row dark:bg-neutral2-2 bg-neutral1-30'} transition-all duration-[0.2s]`,
         className
       )}
     >
@@ -204,9 +206,9 @@ export default function ComposerInput({
             value={content}
             onChange={(e) => setContent(e.target.value)}
             placeholder={
-              usedBy === 'post' ? 'Bắt đầu một bài viết...' : 'Đăng câu trả lời của bạn...'
+              usedBy === 'post' ? t('start posts') : t('start reply')
             }
-            className={`min-w-full p-0 text-left min-h-fit max-h-fit !bg-transparent text-tertiary placeholder:text-tertiary grow opacity-50 focus:outline-none focus:bg-transparent focus:opacity-100 ${isInputFocused ? 'pt-[0px]' : ' pt-[30px]'}`}
+            className={`min-w-full p-0 text-left min-h-fit max-h-fit !bg-transparent dark:text-tertiary text-surface-2 dark:placeholder:text-tertiary placeholder:text-surface-2 grow opacity-50 focus:outline-none focus:bg-transparent focus:opacity-100 ${isInputFocused ? 'pt-[0px]' : ' pt-[30px]'}`}
             onFocus={() => setInputFocused(true)}
           />
           {previewUrl && (
@@ -222,8 +224,8 @@ export default function ComposerInput({
                 />
                 {isUploading && (
                   <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 rounded">
-                    <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                  </div>
+                    <div className="w-6 h-6 border-2 dark:border-white border-black border-t-transparent rounded-full animate-spin"></div>
+                    </div>
                 )}
                 <button
                   onClick={handleRemoveImage}
@@ -262,7 +264,7 @@ export default function ComposerInput({
               }))}
               value={selectedTopic}
               onChange={setSelectedTopic}
-              placeholder="Chọn chủ đề"
+              placeholder="Select an topic"
             />
           </div>
         ) : (
@@ -274,12 +276,12 @@ export default function ComposerInput({
           className="px-[1.5rem] py-[0.75rem] ml-auto"
           onClick={handleSubmit}
           child={
-            <Typography className="text-secondary" level="base2sm">
+            <Typography className="dark:text-secondary text-surface-2" level="base2sm">
               {isSubmitting
-                ? 'Đang đăng...'
+                ? t('posting')
                 : usedBy === 'post'
-                  ? 'Post'
-                  : 'Reply'}
+                  ? t('post')
+                  : t('reply')}
             </Typography>
           }
         />

@@ -72,7 +72,7 @@ const Dropdown = ({
         className={cn(
           'w-fit p-2.5 inline-flex gap-3 items-center rounded-[0.75rem] group bg-neutral2-1 ml-4',
           'after:content-[""] after:w-2 after:h-2',
-          'after:border-r-2 after:border-b-2 after:border-secondary',
+          'after:border-r-2 after:border-b-2 dark:after:border-secondary after:border-surface-2',
           'after:transform after:rotate-45 after:transition-transform after:duration-200',
           disabled && 'opacity-50 cursor-not-allowed',
           isOpen && 'after:rotate-[225deg] after:translate-y-1',
@@ -80,7 +80,7 @@ const Dropdown = ({
           className
         )}
       >
-        <div className="text-sm text-gray-200">
+        <div className="text-sm dark:text-gray-200 text-surface-2">
           {selectedOption ? renderOptionContent(selectedOption) : placeholder}
         </div>
       </button>
@@ -99,10 +99,10 @@ const Dropdown = ({
                   aria-selected={option.value === value}
                   className={cn(
                     'relative px-4 py-2 text-sm cursor-pointer',
-                    'bg-neutral2-1 hover:bg-neutral2-10 hover:text-primary text-primary',
+                    'bg-neutral2-1 dark:hover:bg-neutral2-10 hover:bg-neutral1-90 dark:hover:text-primary dark:text-primary',
                     index === 0 && 'rounded-t-lg',
                     index === options.length - 1 && 'rounded-b-lg',
-                    option.value === value && 'bg-neutral2-10 text-primary'
+                    option.value === value && 'dark:bg-neutral2-10 bg-neutral2-90 dark:text-primary text-surface-2'
                   )}
                   onClick={() => handleOptionClick(option.value)}
                 >

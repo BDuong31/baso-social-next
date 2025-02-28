@@ -36,7 +36,7 @@ export default function TrendingPostCard({
     <Link href={`/posts/${alt}`}>
       <div
         className={cn(
-          'relative bg-neutral2-2 rounded-[1.25rem] p-3 flex items-center gap-4 hover:bg-neutral2-5 focus:border-[3px] focus:border-neutral2-10',
+          'relative dark:bg-neutral2-2 bg-neutral1-30 rounded-[1.25rem] p-3 flex items-center gap-4 dark:hover:bg-neutral2-5 hover:bg-neutral1-60 focus:border-[3px] focus:border-neutral2-10',
           className
         )}
       >
@@ -56,7 +56,7 @@ export default function TrendingPostCard({
         <div className="flex flex-col gap-3">
           <Typography
             level="base2sm"
-            className="text-primary opacity-80 line-clamp-2"
+            className="dark:text-primary text-surface-3 opacity-80 line-clamp-2"
           >
             {content}
           </Typography>
@@ -73,7 +73,7 @@ export default function TrendingPostCard({
                   className="max-h-[20px]"
                 />
               </div>
-              <Typography level="captionr" className="opacity-45 text-tertiary">
+              <Typography level="captionr" className="opacity-45 dark:text-tertiary text-surface">
                 {relativeTime(new Date(time))}
               </Typography>
               <div
@@ -82,7 +82,7 @@ export default function TrendingPostCard({
                   backgroundColor: `${topic.color ? topic.color : '#ffffff'}`,
                 }}
               ></div>
-              <Typography level="captionr" className="text-tertiary">
+              <Typography level="captionr" className="dark:text-tertiary text-surface">
                 {topic.name}
               </Typography>
             </div>

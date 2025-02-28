@@ -265,8 +265,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useTheme } from 'next-themes';
-import { set } from 'zod';
-import { delay } from 'framer-motion';
 
 const Switch = () => {
   const {theme, setTheme } = useTheme();
@@ -295,7 +293,7 @@ const Switch = () => {
   return (
     <StyledWrapper>
       <label className="theme-switch">
-        <input className="theme-switch__checkbox" type="checkbox" checked={isChecked} onClick={handleChange} />
+        <input className="theme-switch__checkbox" type="checkbox" checked={isChecked} onChange={handleChange} />
         <div className="theme-switch__container">
           <div className="theme-switch__clouds" />
           <div className="theme-switch__stars-container">

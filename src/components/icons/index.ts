@@ -1,5 +1,7 @@
 export { default as AddIcon } from './add';
 export { default as ArrowBackIcon } from './arrow-back';
+export { default as ArrowNextIcon } from './arrow-next';
+export { default as ArrowRiseIcon } from './arrow-rise';
 export { default as AvatarIcon } from './avatar';
 export { default as BellIcon } from './bell';
 export { default as BookmarkIcon } from './bookmark';
@@ -62,3 +64,5 @@ export { default as RightButton } from './right';
 export { default as FollowedSVG } from './followed';
 export { default as LikedSVG } from './liked';
 export { default as RepliedSVG } from './replied';
+export { default as UserIcon} from './user';
+export { default as ReportIcon} from './report';

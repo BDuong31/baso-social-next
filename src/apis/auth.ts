@@ -9,9 +9,11 @@ interface LoginParams {
 }
 
 interface RegisterParams {
+  avatar?: string;
   firstName: string;
   lastName: string;
   username: string;
+  email: string;
   password: string;
 }
 
@@ -27,3 +29,13 @@ export const register = async (params: RegisterParams): Promise<IApiResponse<str
   const response = await axiosInstance.post(endpoints.auth.register, params);
   return response.data;
 };
+
+// export const logout = async (): Promise<IApiResponse<string>> => {
+//   const response = await axiosInstance.post(endpoints.auth.logout);
+//   return response.data;
+// };
+
+export  const googleLogin = async (params: RegisterParams): Promise<IApiResponse<string>> => {
+  const response = await axiosInstance.post(endpoints.auth.googleLogin, params);
+  return response.data;
+}

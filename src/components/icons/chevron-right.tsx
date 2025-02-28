@@ -1,14 +1,15 @@
 import { cn } from '@/lib/utils';
+import { useTheme } from 'next-themes';
 
 export default function ChevronRight({ className }: { className?: string }) {
+  const { theme } = useTheme();
   return (
     <svg
-      className={cn('h-6 w-6', className)}
+      className={cn('h-6 w-6 dark:fill-[#F8F8F8] fill-[#1F1F1F]', className)}
       xmlns="http://www.w3.org/2000/svg"
       width="24"
       height="24"
       viewBox="0 0 24 24"
-      fill="rgba(248, 248, 248, 0.7)"
     >
       <path
         fillRule="evenodd"

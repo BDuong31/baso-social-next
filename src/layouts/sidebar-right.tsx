@@ -14,6 +14,7 @@ import ProfileCard from '@/components/profile-card/profile-card';
 import ToggleGroup from '@/components/toggle-group/toggle-group';
 import { TrendingPostCard } from '@/components/trending-post-card';
 import { Typography } from '@/components/typography';
+import { useTranslation } from 'react-i18next';
 
 //-------------------------------------------------------------------------
 
@@ -32,7 +33,7 @@ export default function SidebarRight({ className }: SidebarRightProps) {
   });
   const [error, setError] = React.useState({ posts: '', followers: '' });
   const { userProfile } = useUserProfile();
-
+  const { t } = useTranslation();
   React.useEffect(() => {
     const fetchPostsData = async () => {
       setIsLoading((prev) => ({ ...prev, posts: true }));
@@ -98,17 +99,17 @@ export default function SidebarRight({ className }: SidebarRightProps) {
   return (
     <section
       className={cn(
-        `bg-cushion h-screen relative z-10 w-85 2xl:w-120 transition-[width] duration-300 ease-in-out`,
+        `dark:bg-cushion bg-[#e8e8e8e5] h-screen relative z-10 w-80 2xl:w-[22rem] transition-[width] duration-300 ease-in-out`,
         className
       )}
     >
-      <div className="w-full h-full flex flex-col bg-surface-3 p-3 gap-3">
+      <div className="w-full h-full flex flex-col dark:bg-surface-3 bg-[#e8e8e8e5]  p-3 gap-3">
         {!isFollowingPage && (
           <ToggleGroup
-            className="w-full p-1 flex justify-between items-center bg-neutral3-60 rounded-[6.25rem]"
+            className="w-full p-1 flex justify-between items-center dark:bg-neutral3-60 bg-[#c8c8c899] rounded-[6.25rem]"
             items={[
-              { key: '1', label: 'Who to follow' },
-              { key: '2', label: 'Trending posts' },
+              { key: '1', label: t('followers') },
+              { key: '2', label: t('trending post') },
             ]}
             onChange={handleTabChange}
           />
@@ -118,9 +119,9 @@ export default function SidebarRight({ className }: SidebarRightProps) {
           <>
             <Typography
               level="title"
-              className="text-tertiary opacity-80 px-3 py-[0.625rem]"
+              className="dark:text-tertiary text-surface opacity-80 px-3 py-[0.625rem]"
             >
-              Trending Posts
+              {t('trending post')}
             </Typography>
             {posts.map((post) => (
               <TrendingPostCard

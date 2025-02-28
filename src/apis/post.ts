@@ -39,6 +39,7 @@ export const createPost = async (
     image ? data : rest
   );
 
+
   return response.data;
 };
 
@@ -66,7 +67,7 @@ export const savePost = async (
 export const unsavePost = async (
   postId: string
 ): Promise<IApiResponse<string>> => {
-  const response = await axiosInstance.post(endpoints.post.unsave(postId));
+  const response = await axiosInstance.delete(endpoints.post.unsave(postId));
   return response.data;
 };
 

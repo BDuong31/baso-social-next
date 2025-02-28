@@ -5,6 +5,7 @@ import React from 'react';
 
 import { getUserProfile } from '@/apis/user';
 import { IUserProfile } from '@/interfaces/user';
+import io from 'socket.io-client';
 
 interface UserProfileContextType {
   userProfile: IUserProfile | null;

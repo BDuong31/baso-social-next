@@ -1,0 +1,24 @@
+import React from 'react';
+import { useRouter } from 'next/router';
+
+import { Button } from '@/components/button';
+import { ArrowBackIcon } from '@/components/icons';
+import SearchInput from '@/components/search-input/search-input';
+import { useTranslation } from 'react-i18next';
+
+//-----------------------------------------------------------------------------------------------
+
+export default function HeaderExplore() {
+  const router = useRouter();
+  const { t } = useTranslation();
+  return (
+    <div className="flex items-center gap-3">
+      <Button
+        onClick={() => router.back()}
+        className="size-[44px]"
+        child={<ArrowBackIcon />}
+      />
+      <SearchInput placeholder={t('search topics')} />
+    </div>
+  );
+}

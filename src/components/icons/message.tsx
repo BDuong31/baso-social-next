@@ -3,7 +3,7 @@ import { cn } from '@/lib/utils';
 export default function MessageIcon({ className }: { className?: string }) {
   return (
     <svg
-      className={cn('w-6 h-6 stroke-secondary ', className)}
+      className={cn('w-6 h-6 dark:stroke-secondary stroke-[#1f1f1f] ', className)}
       viewBox="0 0 24 24"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -15,7 +15,7 @@ export default function MessageIcon({ className }: { className?: string }) {
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
-          stroke='rgba(248, 248, 248, 0.7)'
+          //stroke='rgba(248, 248, 248, 0.7)'
         />
       </g>
     </svg>

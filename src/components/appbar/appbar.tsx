@@ -34,7 +34,7 @@ const AppBar: React.FC<AppBarProps> = ({
                         {leading}
                     </span>
                 )}
-                <Typography level="title" className="text-secondary select-none">
+                <Typography level="title" className="dark:text-secondary text-surface-2 select-none">
                     {title}
                 </Typography>
             </span>

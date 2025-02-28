@@ -50,10 +50,12 @@ export const endpoints = {
     auth: {
         login: `${VERSION_PREFIX}/authenticate`,
         register: `${VERSION_PREFIX}/register`,
+        googleLogin: `${VERSION_PREFIX}/google-login`,
     },
 
     user: {
         get: `${VERSION_PREFIX}/users`,
+        getListUser: `${VERSION_PREFIX}/rpc/users/list-by-ids`,
         create: `${VERSION_PREFIX}/users`,
         update: `${VERSION_PREFIX}/profile`,
         profile: `${VERSION_PREFIX}/profile`,
@@ -62,7 +64,7 @@ export const endpoints = {
         followings: (id: string) => `${VERSION_PREFIX}/users/${id}/followings`,
         follow: (id: string) => `${VERSION_PREFIX}/users/${id}/follow`,
         unfollow: (id: string) => `${VERSION_PREFIX}/users/${id}/unfollow`,
-        profileById: (id: string) => `${VERSION_PREFIX}/users/${id}`,
+        profileById: (id: string) => `${VERSION_PREFIX}/rpc/users/${id}`,
         hasFollowed: (id: string) => `${VERSION_PREFIX}/users/${id}/has-followed`,
     },
 
@@ -99,10 +101,10 @@ export const endpoints = {
     },
 
     chat: {
-        getConversations: `${VERSION_PREFIX}/chat/conversations`, // Lấy danh sách các cuộc hội thoại
-        getMessages: (conversationId: string) => `${VERSION_PREFIX}/chat/conversations/${conversationId}/messages`, // Lấy tin nhắn
+        getConversations: `${VERSION_PREFIX}/chat-rooms`, // Lấy danh sách các cuộc hội thoại
+        getMessages: (conversationId: string) => `${VERSION_PREFIX}/chat-messages/${conversationId}`, // Lấy tin nhắn
         sendMessage: (conversationId: string) => `${VERSION_PREFIX}/chat/conversations/${conversationId}/send`, // Gửi tin nhắn
-        createConversation: `${VERSION_PREFIX}/chat/conversations/create`, // Tạo hội thoại mới
+        createConversation: `${VERSION_PREFIX}/chat-rooms`, // Tạo hội thoại mới
         sendFile: (conversationId: string) => `${VERSION_PREFIX}/chat/conversations/${conversationId}/send-file`, // Gửi file
         sendImage: (conversationId: string) => `${VERSION_PREFIX}/chat/conversations/${conversationId}/send-image`, // Gửi ảnh
         sendAudio: (conversationId: string) => `${VERSION_PREFIX}/chat/conversations/${conversationId}/send-audio`, // Gửi ghi âm

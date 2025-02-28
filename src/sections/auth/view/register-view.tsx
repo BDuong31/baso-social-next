@@ -3,12 +3,12 @@
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-import { register } from '@/apis/auth';
+import { googleLogin, register } from '@/apis/auth';
 import { registerSchema } from '../data';
 
 import { Button } from '@/components/button';
 import { GoogleSVG, LogoSVG } from '@/components/icons';
-import { DebounceInput } from '@/components/input';
+import { DebouncedInput } from '@/components/input';
 import { Typography } from '@/components/typography';
 import {
     AlertDialog,
@@ -28,20 +28,67 @@ import '@/utils/i18n';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from 'next-themes';
 import { cn } from '@/lib';
+import { signIn, signOut, useSession } from "next-auth/react";
+import { useAuth } from '@/context/auth-context';
 
 export default function RegisterView() {
     const router = useRouter();
+    const { setToken } = useAuth();
     const [firstName, setFirstName] = React.useState('');
     const [lastName, setLastName] = React.useState('');
     const [username, setUsername] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [phone, setPhone] = React.useState('');
     const [password, setPassword] = React.useState('');
     const [firstNameError, setFirstNameError] = React.useState('');
     const [lastNameError, setLastNameError] = React.useState('');
     const [usernameError, setUsernameError] = React.useState('');
     const [passwordError, setPasswordError] = React.useState('');
+    const [confirmError, setConfirmError] = React.useState<boolean>(false);
     const [loading, setLoading] = React.useState(false);
     const { theme } = useTheme();
     const { t } = useTranslation();
+    const { data: session } = useSession();
+
+    console.log(session);
+    React.useEffect(() => {
+        const loginGoogle = async () => {
+        if (session) {
+            console.log(session);
+            setLoading(true);
+            const avatar = session.user?.image;
+            const firstName = session.user?.lastName;
+            const lastName = session.user?.firstName;
+            const username = session.user?.username;
+            const email = session.user?.email;
+            const password = "000000";
+
+            try {
+                const token = await googleLogin({
+                    avatar,
+                    firstName,
+                    lastName,
+                    username,
+                    email,
+                    password
+                });
+
+                if (token && token.data) {
+                    setToken(token.data);
+                    router.push('/');
+                }
+            } catch (err: any) {
+                if (err.response && err.response.data && err.response.data.message) {
+                    setPasswordError(err.response.data.message);
+                } else {
+                    setPasswordError('Đã có lỗi xảy ra, vui lòng thử lại sau');
+                }
+            } finally {
+                setLoading(false);
+            }
+        }}
+        loginGoogle();
+    }, [session]);
 
     const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -51,7 +98,7 @@ export default function RegisterView() {
         setUsernameError('');
         setPasswordError('');
 
-        const result = registerSchema.safeParse({ firstName, lastName, username, password });
+        const result = registerSchema.safeParse({ firstName, lastName, username, email, phone, password });
         if (!result.success) {
             result.error.errors.forEach((error) => {
                 if (error.path.includes('firstName')) {
@@ -64,6 +111,7 @@ export default function RegisterView() {
                     setPasswordError(error.message);
                 }
             });
+            setConfirmError(true);
             setLoading(false);
             return;
         }
@@ -72,7 +120,8 @@ export default function RegisterView() {
             const userData = await register({ 
                 firstName, 
                 lastName, 
-                username, 
+                username,
+                email,
                 password 
             });
 
@@ -110,7 +159,7 @@ export default function RegisterView() {
                     </div>
                     <form onSubmit={handleRegister}>
                         <div className="flex flex-col gap-[0.875rem] mb-[1.5rem]">
-                            <DebounceInput
+                            <DebouncedInput
                                 type="text"
                                 name="firstName"
                                 placeholder={t('first name')}
@@ -118,12 +167,12 @@ export default function RegisterView() {
                                 value={firstName}
                                 onChange={(value: string) => setFirstName(value)}
                             />
-                            {firstNameError && (
+                            {firstNameError && !confirmError && (
                                 <Typography level="captionr" className="text-red-500">
                                     {firstNameError}
                                 </Typography>
                             )}
-                            <DebounceInput
+                            <DebouncedInput
                                 type="text"
                                 name="lastName"
                                 placeholder={t('last name')}
@@ -131,12 +180,12 @@ export default function RegisterView() {
                                 value={lastName}
                                 onChange={(value: string) => setLastName(value)}
                             />
-                            {lastNameError && (
+                            {lastNameError && !confirmError && (
                                 <Typography level="captionr" className="text-red-500">
                                     {lastNameError}
                                 </Typography>
                             )}
-                            <DebounceInput
+                            <DebouncedInput
                                  type="text"
                                  name="username"
                                  placeholder={t('username')}
@@ -144,12 +193,25 @@ export default function RegisterView() {
                                  value={username}
                                  onChange={(value: string) => setUsername(value)}
                             />
-                            {usernameError && (
+                            {usernameError && !confirmError && (
                                 <Typography level="captionr" className="text-red-500">
                                     {usernameError}
                                 </Typography>
                             )}
-                            <DebounceInput
+                            <DebouncedInput
+                                 type="text"
+                                 name="email"
+                                 placeholder={t('email')}
+                                 className="w-full dark:bg-neutral2-5 bg-neutral2-50 dark:placeholder:text-tertiary placeholder:text-surface-3 base dark:text-primary text-surface-2 text-sm px-5 py-4 rounded-xl transition border-[1.5px] border-transparent dark:focus:border-neutral2-10 focus:border-neutral2-40"
+                                 value={email}
+                                 onChange={(value: string) => setEmail(value)}
+                            />
+                            {usernameError && !confirmError && (
+                                <Typography level="captionr" className="text-red-500">
+                                    {usernameError}
+                                </Typography>
+                            )}
+                            <DebouncedInput
                                  type="password"
                                  name="password"
                                  placeholder={t('password')}
@@ -157,7 +219,7 @@ export default function RegisterView() {
                                  value={password}
                                  onChange={(value: string) => setPassword(value)}
                             />
-                            {passwordError && (
+                            {passwordError && !confirmError && (
                                 <Typography level="captionr" className="text-red-500">
                                     {passwordError}
                                 </Typography>
@@ -165,7 +227,6 @@ export default function RegisterView() {
                         </div>
                         <div  className="flex flex-col gap-3">
                             <Button
-                                type="submit"
                                 className="w-full base px-[2rem] py-[0.875rem]"
                                 disabled={loading}
                                 child={
@@ -173,9 +234,22 @@ export default function RegisterView() {
                                         {loading ? t('loading') : t('sign up')}
                                     </Typography>
                                 }
+                                onClick={() => handleRegister}
                             />
-
-                            <AlertDialog>
+                            <Button
+                                className="w-full px-[2rem] py-[0.875rem]"
+                                disabled={loading}
+                                child={
+                                    <div className="flex items-center gap-3 justify-center">
+                                        <GoogleSVG className="w-5 h-5"/>
+                                        <Typography level="base2sm" className="dark:text-secondary text-surface-2">
+                                            {t('sign in with google')}
+                                        </Typography>
+                                    </div>
+                                }
+                                onClick={() => signIn("google")}
+                            />
+                            {/* <AlertDialog>
                                 <AlertDialogTrigger asChild>
                                     <Button
                                         type="button"
@@ -201,7 +275,7 @@ export default function RegisterView() {
                                         <AlertDialogCancel>{t('close')}</AlertDialogCancel>
                                     </AlertDialogFooter>
                                 </AlertDialogContent>
-                            </AlertDialog>
+                            </AlertDialog> */}
 
                             <Typography
                                 level="captionr"
