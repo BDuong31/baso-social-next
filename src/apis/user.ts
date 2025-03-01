@@ -47,6 +47,14 @@ export const updateUserProfile = async (
   return data;
 };
 
+export const updatePassword = async (
+  data: { oldpassword: string; password: string }
+): Promise<IApiResponse<IUserProfile>> => {
+  const { data: res } = await axiosInstance.patch(endpoints.user.updatePassword, data);
+  return res;
+}
+  
+
 export const getUserProfileById = async (
   userId: string
 ): Promise<IApiResponse<IUserProfile>> => {
@@ -66,6 +74,7 @@ export const getUserFollower = async (
   id: string
 ): Promise<IApiResponse<any>> => {
   const { data } = await axiosInstance.get(endpoints.user.followers(id));
+  console.log(endpoints.user.followers(id));
   return data;
 };
 

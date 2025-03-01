@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useRef } from 'react';
 import { z } from 'zod';
 
 import { createPost } from '@/apis/post';
@@ -33,7 +33,7 @@ export default function NewPost({ onBack }: INewPostProps) {
   const [previewUrl, setPreviewUrl] = React.useState('');
   const [uploadedImage, setUploadedImage] = React.useState('');
   const [isUploading, setIsUploading] = React.useState(false);
-  const fileInputRef = React.useRef<HTMLInputElement | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null as unknown as HTMLInputElement);
 
   const { userProfile } = useUserProfile();
   const { addPost } = usePost();
@@ -152,7 +152,7 @@ export default function NewPost({ onBack }: INewPostProps) {
           onClick={onBack}
         />
       </div>
-      <div className="w-full h-full relative shadow-button dark:bg-[#282828b3] bg-neutral1-70 backdrop-blur-[50px] before:content-[''] before:absolute before:inset-0 before:pointer-events-none before:border-[1.5px] before:border-[#ffffff1a] before:[mask-image:linear-gradient(175deg,#000,transparent_50%)] md:mx-auto md:w-[40rem] md:h-[16rem] md:mt-[10%] md:rounded-button md:before:rounded-button ">
+      <div className="w-full relative shadow-button dark:bg-[#282828b3] bg-neutral1-70 backdrop-blur-[50px] before:content-[''] before:absolute before:inset-0 before:pointer-events-none before:border-[1.5px] before:border-[#ffffff1a] before:[mask-image:linear-gradient(175deg,#000,transparent_50%)] md:mx-auto md:w-[40rem] h-full md:h-[fit-content] md:mt-[10%] md:rounded-button md:before:rounded-button ">
         <div className="md:hidden w-full flex items-center justify-between p-3">
           <Button
             className="size-10 p-2.5"
@@ -183,11 +183,11 @@ export default function NewPost({ onBack }: INewPostProps) {
                 />
                 {previewUrl && (
                   <div className="relative mt-2 rounded-lg overflow-hidden group">
-                    <div className="relative bg-neutral2-1 p-2 rounded-lg">
+                    <div className="relative bg-neutral2-1 p-2 rounded-lg flex justify-center">
                       <Image
                         src={previewUrl}
                         alt="Preview"
-                        className="w-full h-32 object-cover rounded"
+                        className="m-w-[400px] m-h-[400px] object-cover rounded-button"
                         width={300}
                         height={200}
                       />

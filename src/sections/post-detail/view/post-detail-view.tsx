@@ -39,7 +39,6 @@ export default function PostDetailView({ id }: { id: string }) {
   const handleViewFullPost = () => {
     const newIsViewFull = !isViewFull;
     setIsViewFull(newIsViewFull);
-
     eventBus.emit('toggleSidebarRight', newIsViewFull);
   };
 
@@ -82,7 +81,7 @@ export default function PostDetailView({ id }: { id: string }) {
           <Header onViewFullPost={handleViewFullPost} />
 
           <div
-            className={`${isViewFull ? `${styles.viewFull}` : ''} w-full h-[calc(100svh-155px)] overflow-y-scroll no-scrollbar [mask-image:linear-gradient(180deg,#000_85%,transparent)]`}
+            className={`${isViewFull ? `${styles.viewFull}` : 'overflow-y-scroll'} w-full h-[calc(100svh-155px)] overflow-y-hidden no-scrollbar [mask-image:linear-gradient(180deg,#000_85%,transparent)]`}
           >
             <Post data={(data as IPost) ?? post} className="dark:bg-neutral2-5 bg-neutral1-30" />
 

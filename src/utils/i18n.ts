@@ -2,7 +2,7 @@ import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import HttpApi from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
-const isBrowser = typeof document !== 'undefined';
+const isBrowser = typeof window !== 'undefined';
 
 i18n
     .use(HttpApi)
@@ -11,7 +11,7 @@ i18n
     .init({
         supportedLngs: ['en', 'vi'],
         fallbackLng: 'en',
-        debug: true,
+        debug: process.env.NODE_ENV === 'development',
         interpolation: {
             escapeValue: false,
         },
@@ -23,11 +23,11 @@ i18n
             caches: ['cookie'],
             lookupQuerystring: 'lng',
             lookupCookie: 'i18next',
-            lookupLocalStorage: 'i18nextLng',
+            lookupLocalStorage: isBrowser ? 'i18nextLng' : undefined,
             excludeCacheFor: ['cimode'],
             cookieMinutes: 10,
-            cookieDomain: 'localhost',
-            htmlTag: isBrowser ? document.documentElement : undefined, // 👈 Kiểm tra trước khi sử dụng
+            cookieDomain: process.env.NODE_ENV === 'production' ? 'yourdomain.com' : undefined,
+            htmlTag: isBrowser ? document.documentElement : undefined,
             cookieOptions: { path: '/' },
         },
     });

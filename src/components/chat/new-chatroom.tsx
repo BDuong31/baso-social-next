@@ -80,10 +80,14 @@ export default function NewChatRoom({ onBack }: INewPostProps) {
   const handleCreateChatRoom = () => {
     console.log("tạo phòng");
     const data = {
-      creatorId: userProfile?.id,
-      receiverId: selectedFollower
+      creatorId: userProfile?.id ?? "",
+      receiverId: selectedFollower,
     }
-    createChatRoom(data);
+
+    createChatRoom({
+      creatorId:  userProfile?.id ?? "",
+      receiverId: selectedFollower ?? "",
+    });
 
     if (onBack) onBack();
     router.refresh();
@@ -115,7 +119,7 @@ export default function NewChatRoom({ onBack }: INewPostProps) {
                 onClick={onBack}
               />
             </div>
-            <div Style="scrollbar-width: none" className='md:max-h-[372px] mt-[12px] relative scroll-smooth overflow-auto'>
+            <div style={{scrollbarWidth: "none"}} className='md:max-h-[372px] mt-[12px] relative scroll-smooth overflow-auto'>
               <div className='md:mt-[-8px] '>
                 {follow.map((follower) => (
                   <div key={follower.id} className='relative flex items-center h-[68px] mt-2 p-3 rounded-[20px] dark:bg-neutral2-2 bg-neutral1-70 transition-all duration-200'>

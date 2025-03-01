@@ -34,7 +34,7 @@ export default function ButtonUploadImg({
           throw new Error('File type is not supported');
         }
 
-        if (file.size > 512 * 1024) {
+        if (file.size > 500 * 1024 * 1024) {
           throw new Error('File size is too large');
         }
 

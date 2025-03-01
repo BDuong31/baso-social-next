@@ -38,7 +38,7 @@ export default function ConversationItem({
           <circle cx="12" cy="12" r="6" fill="#55F08B" />
         </svg>
       )}
-      <Avatar src={conversation?.messager.avatar} alt="avatar" />
+      <Avatar src={conversation?.messager.avatar ?? ''} alt="avatar" />
       <div className="flex flex-col items-start justify-center gap-1">
         <Typography
           level="base2sm"

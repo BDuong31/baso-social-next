@@ -31,7 +31,7 @@ export default function ProfileEditView() {
     setLoading(true);
     try {
       const response = await updateUserProfile(profileData);
-      setUserProfile(response.data);
+      setUserProfile(response.data as IUserProfile);
     } catch (error) {
       console.error('Error updating profile:', error);
     } finally {

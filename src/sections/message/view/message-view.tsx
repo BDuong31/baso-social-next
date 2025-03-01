@@ -39,8 +39,11 @@ interface ISent {
   message: string;
 }
 
-let socket = io('http://192.168.1.227:3000/chat', { transports: ['websocket'] });
+interface IChatRoomResponse {
+  result: IChatRoom[];
+}
 
+let socket = io('http://localhost:3000/chat', { transports: ['websocket'] });
 
 export default function Message() {
 
@@ -50,7 +53,7 @@ export default function Message() {
   const [chatRooms, setChatRooms] = React.useState<IChatRoom[]>([]);
   const [chatRoom, setChatRoom] = React.useState<IChatRoom>();
   const [loading, setLoading] = React.useState<boolean>(true);
-  const [selectedConversationId, setSelectedConversationId] = React.useState<string | null>(null);
+  const [selectedConversationId, setSelectedConversationId] = React.useState<string>('');
   const [ Conversation, setConversation] = React.useState<IMessage[]>([]);
   const selectedChatRoom = chatRooms.find((room) => room.id === selectedConversationId);
 
@@ -60,7 +63,7 @@ export default function Message() {
   React.useEffect(() => {
     const fetchChatRooms = async () => {
       try {
-        const response = await getChatRooms();
+        const response = (await getChatRooms()) as unknown as IChatRoomResponse;
         if (Array.isArray(response?.result)) {
           setChatRooms(response?.result);
         } else {
@@ -82,9 +85,10 @@ export default function Message() {
         const response = await axiosInstance.get<ChatMessage[]>(endpoints.chat.getMessages(selectedConversationId));
         const messagesData = response.data.map((message: any) => ({
           user: {
-            id: message.senderId,
-            avatarUrl: message.senderId === userProfile.userProfile?.id ? userProfile.userProfile?.avatar : chatRoom?.messager.avatar,
-            name: message.senderId === userProfile.userProfile?.id ? `${userProfile.userProfile?.lastName} ${userProfile.userProfile?.firstName}` : `${chatRoom?.messager.lastName} ${chatRoom?.messager.firstName}`,
+            id: message.senderId ?? '',
+            avatarUrl: message.senderId === userProfile.userProfile?.id 
+            ? userProfile.userProfile?.avatar ?? "/default-avatar.png" 
+            : chatRoom?.messager.avatar ?? "/default-avatar.png", 
           },
           roomId: message.roomId,
           content: message.content,

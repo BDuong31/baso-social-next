@@ -2,9 +2,12 @@ import { LineChart,PieChart,Legend, Cell, Pie ,Line, XAxis, YAxis, Tooltip, Resp
 import { ArrowRiseIcon } from "../icons";
 import { Typography } from "../typography";
 import { cn } from '@/lib/utils'
+
+type ChartData = { name: string; value: number };
+
 type Props = {
     title: string;
-    data: any;
+    data: ChartData[];
     colors: any;
     color: string;
     inner: string | number;
@@ -29,7 +32,7 @@ const CardPieChart =({ title, data, colors, color, inner, outer, paddingangle,wi
                         innerRadius={inner}
                         outerRadius={outer}
                         fill={color}
-                        paddingAngle={paddingangle}
+                        paddingAngle={Number(paddingangle)}
                         dataKey="value"
                         >
                         {data.map((entry, index) => (

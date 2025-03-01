@@ -26,7 +26,7 @@ import { io } from 'socket.io-client';
 //----------------------------------------------------------------------
 interface ConversationDetailPageProps {
   chatRoom: IChatRoom;
-  Conversation: IMessage;
+  Conversation: IMessage[];
   id: string;
   onBack: () => void;
   onSents: (data: string) => void;
@@ -81,7 +81,7 @@ export default function ConversationDetailPage({
         id="conversation-header"
         className="w-full flex items-center gap-4 py-3 pr-6 pl-3"
       >
-        <Avatar src={chatRoom.messager.avatar} alt="avatar" />
+        <Avatar src={chatRoom.messager.avatar ?? ""} alt="avatar" />
 
         <Typography level="base2m" className="dark:text-primary text-surface-3 grow">
           {chatRoom.messager.lastName} {chatRoom.messager.firstName} 

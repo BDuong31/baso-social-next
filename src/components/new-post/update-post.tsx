@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import React from 'react';
+import React, { useRef } from 'react';
 import { z } from 'zod';
 
 import { updatePost } from '@/apis/post';
@@ -38,7 +38,7 @@ export default function UpdatePost({
   const [previewUrl, setPreviewUrl] = React.useState('');
   const [uploadedImage, setUploadedImage] = React.useState('');
   const [isUploading, setIsUploading] = React.useState(false);
-  const fileInputRef = React.useRef<HTMLInputElement | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null as unknown as HTMLInputElement);
 
   const { userProfile } = useUserProfile();
   const { posts, updatePostCtx } = usePost();

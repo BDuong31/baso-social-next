@@ -8,7 +8,7 @@ import {
   import HomeIcon from '@/components/icons/home';
   import Profile from '@/components/icons/profile';
   import { useTranslation } from 'react-i18next';
-  
+  import React, { JSX } from 'react';
   //-----------------------------------------------------------------------------------------------
   
   export const NAVIGATION_ITEMS = () => {

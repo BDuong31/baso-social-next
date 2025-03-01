@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import React from 'react';
 
-import { login } from '@/apis/auth';
+import { googleLogin, login } from '@/apis/auth';
 import { useAuth } from '@/context/auth-context';
 import { loginSchema } from '../data';
 

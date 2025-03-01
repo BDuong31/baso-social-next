@@ -13,7 +13,7 @@ interface AvatarProps {
 }
 
 const Avatar: React.FC<AvatarProps> = ({ src, alt, size, className }) => (
-  <div className="relative">
+  <div className="relative self-center">
     <Image
       width={size ? size : 44}
       height={size ? size : 44}

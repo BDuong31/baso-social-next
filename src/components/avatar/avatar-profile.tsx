@@ -24,7 +24,7 @@ const AvatarProfile = ({ avatar, canEdit }: AvatarProfileProps) => {
                     throw new Error('Loại tệp không được hỗ trợ');
                 }
 
-                if (file.size > 512 * 1024){
+                if (file.size > 512 * 1024 * 1024){
                     throw new Error('Kích thước tệp quá lớn');
                 }
 

@@ -9,12 +9,12 @@ interface LoginParams {
 }
 
 interface RegisterParams {
-  avatar?: string;
-  firstName: string;
-  lastName: string;
-  username: string;
-  email: string;
-  password: string;
+  avatar?: string | null;
+  firstName: string | undefined;
+  lastName: string | undefined;
+  username: string | undefined;
+  email: string | null | undefined;
+  password: string | undefined;
 }
 
 export const login = async ({ username, password }: LoginParams): Promise<IApiResponse<string>> => {

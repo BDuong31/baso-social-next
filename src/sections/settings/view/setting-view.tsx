@@ -20,7 +20,7 @@ import { AccountsSection } from '../subsections/account-section';
 import { NotificationsSection } from '../subsections/notification-section';
 import {PreferencesSection}  from '../subsections/preferences-section';
 import { set } from 'zod';
-import React from 'react';
+import React, { JSX } from 'react';
 import '@/utils/i18n';
 import { useTranslation } from 'react-i18next';
 import { useTheme } from 'next-themes';
@@ -49,7 +49,7 @@ const SettingsView: React.FC = () => {
 
   const { userProfile } = useUserProfile();
   const [language, setlanguage] = React.useState<string>(i18n.language);
-  const [themes, setThemes] = React.useState<string>(theme);
+  const [themes, setThemes] = React.useState<string>(theme ?? "system");
   const currentUser = userProfile && {
     fullname: `${userProfile.firstName} ${userProfile.lastName}`,
     nickname: userProfile.username,

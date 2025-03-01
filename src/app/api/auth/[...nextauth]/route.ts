@@ -1,11 +1,15 @@
 import NextAuth from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
+import { NextRequest, NextResponse } from "next/server";
+import { JWT } from "next-auth/jwt";
+import { Session } from "next-auth";
 
-export const authOptions = {
+// ✅ Định nghĩa `authOptions`
+const authOptions = {
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID!,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      clientId: '697579782317-tjcpc3k2in99vskgkbgms4jsv1o8ro2l.apps.googleusercontent.com',
+      clientSecret: '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',
       authorization: {
         params: {
           scope: "openid email profile",
@@ -14,18 +18,21 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async session({ session, token }) {
+    async session({ session, token }: { session: Session; token: JWT }) {
       if (session.user) {
         session.user.id = token.sub;
-        session.user.firstName = session.user.name.split(" ").slice(0, -1).join(" "); // Tách First Name
-        session.user.lastName = session.user.name.split(" ").slice(-1).join(" "); // Tách Last Name
-        session.user.username = session.user.email.split("@")[0]; // Tạo Username từ email
+        session.user.firstName = session.user.name?.split(" ").slice(0, -1).join(" ") || "";
+        session.user.lastName = session.user.name?.split(" ").slice(-1).join(" ") || "";
+        session.user.username = session.user.email?.split("@")[0] || "";
       }
       return session;
     },
   },
-  secret: process.env.NEXTAUTH_SECRET,
+  secret:'http://localhost:3001',
 };
 
+// ✅ Dùng `NextAuth()` đúng cách
 const handler = NextAuth(authOptions);
+
+// ✅ Export API routes
 export { handler as GET, handler as POST };

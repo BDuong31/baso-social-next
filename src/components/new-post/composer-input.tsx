@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React from 'react';
+import React, { useRef } from 'react';
 import { z } from 'zod';
 
 import { createComment } from '@/apis/comment';
@@ -57,7 +57,7 @@ export default function ComposerInput({
 
   const [content, setContent] = React.useState<string>('');
   const inputRef = React.useRef<HTMLTextAreaElement | null>(null);
-  const fileInputRef = React.useRef<HTMLInputElement | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null as unknown as HTMLInputElement);
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
 
   const { t } = useTranslation();
@@ -186,7 +186,7 @@ export default function ComposerInput({
   return (
     <div
       className={cn(
-        `w-full flex gap-3 h-[64px] z-10 overflow-hidden items-center justify-between p-3 absolute left-0 bottom-0 rounded-[1.25rem] ${isInputFocused ? ' h-fit flex-col justify-start dark:bg-neutral3-70 bg-neutral1-50 dark:hover:bg-neutral2-5 hover:bg-neutral1-30 ' : 'flex-row dark:bg-neutral2-2 bg-neutral1-30'} transition-all duration-[0.2s]`,
+        `w-full flex gap-3 h-[64px] z-10 overflow-hidden items-center justify-between p-3 absolute left-0 bottom-0 rounded-[1.25rem] ${isInputFocused ? ' h-fit flex-row justify-start dark:bg-neutral3-70 bg-neutral1-50 dark:hover:bg-neutral2-5 hover:bg-neutral1-30 ' : 'flex-row dark:bg-neutral2-2 bg-neutral1-30'} transition-all duration-[0.2s]`,
         className
       )}
     >
@@ -208,7 +208,7 @@ export default function ComposerInput({
             placeholder={
               usedBy === 'post' ? t('start posts') : t('start reply')
             }
-            className={`min-w-full p-0 text-left min-h-fit max-h-fit !bg-transparent dark:text-tertiary text-surface-2 dark:placeholder:text-tertiary placeholder:text-surface-2 grow opacity-50 focus:outline-none focus:bg-transparent focus:opacity-100 ${isInputFocused ? 'pt-[0px]' : ' pt-[30px]'}`}
+            className={`min-w-full p-0 text-left content-center min-h-fit max-h-fit !bg-transparent dark:text-tertiary text-surface-2 dark:placeholder:text-tertiary placeholder:text-surface-2 grow opacity-50 focus:outline-none focus:bg-transparent focus:opacity-100 ${isInputFocused ? 'pt-[0px]' : ' pt-[0px]'}`}
             onFocus={() => setInputFocused(true)}
           />
           {previewUrl && (
@@ -241,7 +241,7 @@ export default function ComposerInput({
       </div>
 
       <div
-        className={`${isInputFocused ? 'w-full' : 'hidden'} flex items-center mt-3`}
+        className={`${isInputFocused ? 'w-[8rem]' : 'hidden'} flex items-center`}
       >
         {isInputFocused && usedBy === 'post' ? (
           <div id="tool-reply" className="flex gap-1 items-center mt-3">

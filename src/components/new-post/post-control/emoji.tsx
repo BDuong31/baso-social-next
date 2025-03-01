@@ -3,12 +3,18 @@ import Picker from '@emoji-mart/react'
 import React, { useState, useRef } from 'react'
 import {Button} from '../../button'
 import { useTheme } from 'next-themes';
+import { Emoji as EmojiMart } from "emoji-mart";
+
+type EmojiDataType = {
+  [key: string]: { emoji: string }[];
+};
+
 
 export default function Emoji({ onEmojiSelect }: { onEmojiSelect: (emoji: string) => void }) {
-  const [emojiData, setEmojiData] = useState({});
+  const [emojiData, setEmojiData] = useState<EmojiDataType>({});
   const [isEmoji, setIsEmoji] = React.useState(false);
   const [selectedEmoji, setSelectedEmoji] = useState("");
-  const [activeCategory, setActiveCategory] = useState(null);
+  const [activeCategory, setActiveCategory] = useState<string | null>(null);
   const emoijRef = useRef<HTMLDivElement | null >(null);
   const { theme } = useTheme();
   React.useEffect(() => {
@@ -19,11 +25,9 @@ export default function Emoji({ onEmojiSelect }: { onEmojiSelect: (emoji: string
       })
   }, [emojiData]);
   
-  const handleCategoryClick = (category) => {
+  const handleCategoryClick = (category: string) => {
     setActiveCategory(category);
-};
-
-  console.log(emojiData)
+  };
 
   React.useEffect(() => {
     const handleEmoji = (event: MouseEvent) => {

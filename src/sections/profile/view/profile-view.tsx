@@ -16,7 +16,7 @@ import { getUserFollower } from '@/apis/user';
 
 export default  function ProfileView() {
     const { userProfile, setUserProfile } = useUserProfile();
-    const [ profiles, setIsProfiles ] = React.useState<IUserProfile>(userProfile);
+    const [profiles, setIsProfiles] = React.useState<IUserProfile>(userProfile ?? {} as IUserProfile);
     const [ posts, setPosts ] = React.useState<IPost[]>([]);
     const [ postMedia , setPostMedia ] = React.useState<IPost[]>([]);
     const [ followerCount, setIsFollowerCount ] = React.useState<number>(0);
@@ -39,7 +39,7 @@ export default  function ProfileView() {
             setLoading(true);
             try {
                 const data = await getPosts({ ...params, userId: userProfile?.id });
-                const response = await getUserFollower(userProfile?.id);
+                const response = await getUserFollower(userProfile?.id ?? '');
                 setUserProfile({...profiles, followerCount: response.data.length, postCount: data.data.length});
                 setPosts(data.data);
                 setPostMedia(data.data.filter((post) => post.type === 'media'));
@@ -52,8 +52,6 @@ export default  function ProfileView() {
         };
         fetchPosts();
     }, [ params, isDeleted])
-
-    console.log(userProfile);
 
     const handleToggle = (key: string) => {
         switch (key) {

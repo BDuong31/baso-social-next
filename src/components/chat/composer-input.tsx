@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import React from 'react';
+import React, { useRef } from 'react';
 import { z } from 'zod';
 
 import { createComment } from '@/apis/comment';
@@ -56,7 +56,7 @@ export default function ComposerInput({
 
   const [content, setContent] = React.useState<string>('');
   const inputRef = React.useRef<HTMLTextAreaElement | null>(null);
-  const fileInputRef = React.useRef<HTMLInputElement | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null as unknown as HTMLInputElement);
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
 
   React.useEffect(() => {

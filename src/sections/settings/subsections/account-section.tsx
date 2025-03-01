@@ -1,7 +1,7 @@
 // import Image from 'next/image';
 import React from 'react';
 
-import { updateUserProfile } from '@/apis/user';
+import { updatePassword, updateUserProfile } from '@/apis/user';
 import { useUserProfile } from '@/context/user-context';
 
 import {
@@ -42,6 +42,8 @@ import { useTranslation } from 'react-i18next';
 export const AccountsSection = () => {
   const { userProfile } = useUserProfile();
   const [password, setPassword] = React.useState('');
+  const [newPassword, setNewPassword] = React.useState('');
+  const [ passwordError, setPasswordError] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
   const { t } = useTranslation();
   const handleSavePassword = async () => {
@@ -49,8 +51,14 @@ export const AccountsSection = () => {
 
     setLoading(true);
     try {
-      await updateUserProfile({ password });
+      const data = {
+        oldpassword: password,
+        password: newPassword
+      }
+      await updatePassword(data);
+      console.log('Password updated');
       setPassword('');
+      setNewPassword('');
     } catch (error) {
       console.error('Failed to update password', error);
       alert('Failed to update password');
@@ -123,15 +131,22 @@ export const AccountsSection = () => {
                 <AlertDialogDescription>
                   <input
                     type="password"
-                    placeholder={t('new password')}
+                    placeholder={t('old password')}
                     className="w-full p-3 border border-neutral-400 rounded-[10px] mb-4 focus:outline-none "
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                  />                  
+                  <input
+                    type="password"
+                    placeholder={t('new password')}
+                    className="w-full p-3 border border-neutral-400 rounded-[10px] mb-4 focus:outline-none "
+                    value={newPassword}
+                    onChange={(e) => setNewPassword(e.target.value)}
                   />
                 </AlertDialogDescription>
               </AlertDialogHeader>
               <AlertDialogFooter>
-                <AlertDialogCancel className="bg-red-500 dark:text-white text-black hover:bg-red-600">
+                <AlertDialogCancel>
                   {t('cancel')}
                 </AlertDialogCancel>
                 <AlertDialogAction

@@ -58,6 +58,7 @@ export const endpoints = {
         getListUser: `${VERSION_PREFIX}/rpc/users/list-by-ids`,
         create: `${VERSION_PREFIX}/users`,
         update: `${VERSION_PREFIX}/profile`,
+        updatePassword: `${VERSION_PREFIX}/update-password`,
         profile: `${VERSION_PREFIX}/profile`,
         bookmark: (id: string) => `${VERSION_PREFIX}/users/${id}/saved-posts`,
         followers: (id: string) => `${VERSION_PREFIX}/users/${id}/followers`,

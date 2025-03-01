@@ -1,7 +1,6 @@
 import { useTheme } from "next-themes";
 
 export default function Protection() {
-  const { theme } = useTheme
   return (
     <svg
       className="h-6 w-6 dark:stroke-secondary stroke-surface-2"

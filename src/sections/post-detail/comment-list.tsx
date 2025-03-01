@@ -21,7 +21,7 @@ export default function CommentList({
   return (
     <>
       {comments?.length > 0 && (
-        <ul className={cn(`w-full overflow-y-auto mt-2`, className)}>
+        <ul className={cn(`w-full max-h-[100vh] no-scrollbar overflow-y-auto mt-2`, className)}>
           {comments.map((comment: ICommment) => (
             <li key={comment.id} className="mb-2">
               {comment.children.length === 0 ? (

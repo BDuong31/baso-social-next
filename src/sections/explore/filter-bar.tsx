@@ -46,15 +46,17 @@ export default function FilterBar({
 
       <div className="absolute overflow-x-scroll no-scrollbar flex justify-start items-start gap-1 flex-nowrap w-full max-w-[calc(100%-70px)]">
         {tagNames.map((tag, index) => (
-          <span
+          <div className='flex'>
+          <div
             key={tag}
             onClick={() => handleTagClick(index)}
-            className={`tag-card dark:text-[#f8f8f8b3] text-[#080808b3] text-sm font-semibold px-4 py-2 rounded-xl cursor-pointer dark:hover:bg-hover hover:bg-neutral1-60 ${
+            className={`w-[max-content] tag-card dark:text-[#f8f8f8b3] text-[#080808b3] text-sm font-semibold px-4 py-2 rounded-xl cursor-pointer dark:hover:bg-hover hover:bg-neutral1-60 ${
               activeTagIndex === index ? 'dark:bg-[#f8f8f81a] bg-neutral1-60' : ''
             }`}
           >
             {tag}
-          </span>
+          </div>
+          </div>
         ))}
       </div>
 

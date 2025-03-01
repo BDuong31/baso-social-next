@@ -235,16 +235,16 @@ export default function Post({
 
           {isPostType && (localData as IPost).image && (
             <Link href={`/posts/${localData.id}`}>
-              <Image
-                width={400}
-                height={400}
+              <div className='w-full h-[400px] flex justify-center'>
+              <img
                 src={
                   (localData as IPost).image ||
                   'https://i.pinimg.com/originals/d3/6f/ef/d36fef4f4885354afcfd3753dee95741.jpg'
                 }
                 alt="post-image"
-                className="max-h-[400px] w-full rounded-[1.5rem] object-cover"
+                className="rounded-[1.5rem] "
               />
+              </div>
             </Link>
           )}
         </div>
