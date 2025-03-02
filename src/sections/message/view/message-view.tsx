@@ -43,7 +43,7 @@ interface IChatRoomResponse {
   result: IChatRoom[];
 }
 
-let socket = io('http://localhost:3000/chat', { transports: ['websocket'] });
+let socket = io('http://basospark.youthscience.club/apis/chat', { transports: ['websocket'] });
 
 export default function Message() {
 
