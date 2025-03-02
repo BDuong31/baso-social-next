@@ -88,7 +88,8 @@ export default function Message() {
             id: message.senderId ?? '',
             avatarUrl: message.senderId === userProfile.userProfile?.id 
             ? userProfile.userProfile?.avatar ?? "/default-avatar.png" 
-            : chatRoom?.messager.avatar ?? "/default-avatar.png", 
+            : chatRoom?.messager.avatar ?? "/default-avatar.png",                      
+            name: message.senderId === userProfile.userProfile?.id ? `${userProfile.userProfile?.lastName} ${userProfile.userProfile?.firstName}` : `${chatRoom?.messager.lastName} ${chatRoom?.messager.firstName}`,
           },
           roomId: message.roomId,
           content: message.content,
