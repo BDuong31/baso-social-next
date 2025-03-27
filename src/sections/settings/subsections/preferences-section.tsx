@@ -72,6 +72,9 @@ export const PreferencesSection = ({ onPreferenceChange}: { onPreferenceChange :
   };
 
   React.useEffect(() => {
+    setSelectedTheme(theme);
+  }, []);
+  React.useEffect(() => {
     console.log(selectedLanguage, selectedTheme);
     onPreferenceChange(selectedTheme, selectedLanguage); // Chuyển giá trị trực tiếp
   }, [selectedTheme, selectedLanguage]);

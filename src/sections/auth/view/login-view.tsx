@@ -30,6 +30,7 @@ import { useTranslation } from 'react-i18next';
 import { useTheme } from 'next-themes';
 import { cn } from '@/lib';
 import { signIn, useSession } from 'next-auth/react';
+import { F2A } from '@/components/f2a';
 
 export default function LoginView() {
     const { setToken } = useAuth();
@@ -39,6 +40,8 @@ export default function LoginView() {
     const [usernameError, setUsernameError] = React.useState('');
     const [passwordError, setPasswordError] = React.useState('');
     const [loading, setLoading] = React.useState(false);
+    const [isF2A, setIsF2A] = React.useState(false);
+    const [userId, setUserId] = React.useState('');
     const { theme } = useTheme();
     const { t } = useTranslation();
     const { data: session} = useSession();
@@ -48,26 +51,30 @@ export default function LoginView() {
         if (session) {
             console.log(session);
             setLoading(true);
-            const avatar = session.user?.image;
-            const firstName = session.user?.lastName;
-            const lastName = session.user?.firstName;
-            const username = session.user?.username;
-            const email = session.user?.email;
-            const password = "000000";
-
+            const avatar = session.user?.image ?? '';  // Sử dụng null nếu avatar là undefined
+            const firstName = session.user?.firstName ?? '';  // Sử dụng null nếu firstName là undefined
+            const lastName = session.user?.lastName ?? '';  // Sử dụng null nếu lastName là undefined
+            const username = session.user?.username ?? '';  // Sử dụng null nếu username là undefined
+            const email = session.user?.email ?? '';  // Sử dụng null nếu email là undefined
+            const password = "000000";  // Hoặc mật khẩu mặc định
             try {
                 const token = await googleLogin({
-                    avatar,
-                    firstName,
-                    lastName,
-                    username,
-                    email,
-                    password
+                  avatar,
+                  firstName,
+                  lastName,
+                  username,
+                  email,
+                  password,
                 });
 
-                if (token && token.data) {
-                    setToken(token.data);
+                if (token) {
+                  if (token.f2a) {
+                    setIsF2A(true);
+                    setUserId(token.token);
+                  } else {
+                    setToken(token.token);
                     router.push('/');
+                  }
                 }
             } catch (err: any) {
                 if (err.response && err.response.data && err.response.data.message) {
@@ -103,12 +110,21 @@ export default function LoginView() {
         }
 
         try {
-            const token = await login({ username, password });
+            const data = await login({ username, password });
+            console.log(data);
 
-            if (token && token.data){
-                setToken(token.data);
+            if (data && data.f2a) {
+                setIsF2A(true);
+                setUserId(data.token)
+            } else {
+                setToken(data.token);
                 router.push('/');
             }
+
+            // if (token && token.data){
+            //     setToken(token.data);
+            //     router.push('/');
+            // }
         } catch (err: any){
             if (err.response && err.response.data && err.response.data.message){
                 setPasswordError(err.response.data.message);
@@ -179,37 +195,6 @@ export default function LoginView() {
                         </Typography>
                       }
                     />
-    
-                    {/* <AlertDialog>
-                      <AlertDialogTrigger asChild>
-                        <Button
-                          type="button"
-                          className="w-full px-[2rem] py-[0.875rem]"
-                          child={
-                            <div className="flex items-center gap-3 justify-center">
-                              <GoogleSVG className="w-5 h-5" />
-                              <Typography
-                                level="base2sm"
-                                className="dark:text-secondary text-surface-2"
-                              >
-                                {t('sign in with Google')}
-                              </Typography>
-                            </div>
-                          }
-                        />
-                      </AlertDialogTrigger>
-                      <AlertDialogContent>
-                        <AlertDialogHeader>
-                          <AlertDialogTitle><LogoSVG className="w-[30px] h-[30px]"/>Baso Spark</AlertDialogTitle>
-                        </AlertDialogHeader>
-                        <AlertDialogDescription>
-                          {t('nosupport')}
-                        </AlertDialogDescription>
-                        <AlertDialogFooter>
-                          <AlertDialogCancel>{t('close')}</AlertDialogCancel>
-                        </AlertDialogFooter>
-                      </AlertDialogContent>
-                    </AlertDialog>*/}
                     <Button
                         className="w-full px-[2rem] py-[0.875rem]"
                         disabled={loading}
@@ -239,6 +224,9 @@ export default function LoginView() {
               </div>
             </div>
           </div>
+          { isF2A && (
+            <F2A id={userId} />
+          )}
         </>
       );
 }

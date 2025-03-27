@@ -13,6 +13,7 @@ export { default as ChevronDownSmall } from './chevron-down-small';
 export { default as CloseIcon } from './close';
 export { default as CommentIcon } from './comment';
 export { default as EarthIcon } from './earth';
+export { default as CopyIcon } from './copy';
 export { default as EditIcon } from './edit';
 export { default as EmailIcon } from './email';
 export { default as ExpandControl } from './expand-control';

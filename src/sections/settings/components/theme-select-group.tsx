@@ -45,9 +45,9 @@ const ThemeSelectGroup = ({
   className,
   ...props
 }: ThemeSelectGroupProps) => {
-  const [activeTheme, setActiveTheme] = useState<ThemeOption>(
-    ThemeOption.light
-  );
+  const { theme } = useTheme();
+  const Value = theme === 'dark' ? ThemeOption.dark : theme === 'light' ? ThemeOption.light : ThemeOption.auto;
+  const [activeTheme, setActiveTheme] = useState<ThemeOption>(Value);
   return (
     <ThemeSelectContext.Provider value={{ activeTheme, setActiveTheme }}>
       <div {...props} className={cn('flex gap-5', className)}>

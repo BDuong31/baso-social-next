@@ -15,6 +15,7 @@ const nextConfig = {
       'dns.bento.showcase.200lab.io',
       'statics.cdn.200lab.io',
       'lh3.googleusercontent.com',
+      'basospark.youthscience.club',
     ],
   },
   output: 'standalone',

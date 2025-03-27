@@ -32,15 +32,11 @@ export default  function ProfileView() {
       
     const { t } = useTranslation();
 
-    console.log("profile : ", profiles);
-
     React.useEffect(() => {
         const fetchPosts = async () => {
             setLoading(true);
             try {
                 const data = await getPosts({ ...params, userId: userProfile?.id });
-                const response = await getUserFollower(userProfile?.id ?? '');
-                setUserProfile({...profiles, followerCount: response.data.length, postCount: data.data.length});
                 setPosts(data.data);
                 setPostMedia(data.data.filter((post) => post.type === 'media'));
             } catch (error) {

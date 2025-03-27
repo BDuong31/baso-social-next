@@ -30,6 +30,7 @@ import { useTheme } from 'next-themes';
 import { cn } from '@/lib';
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useAuth } from '@/context/auth-context';
+import { F2A } from '@/components/f2a';
 
 export default function RegisterView() {
     const router = useRouter();
@@ -49,6 +50,8 @@ export default function RegisterView() {
     const { theme } = useTheme();
     const { t } = useTranslation();
     const { data: session } = useSession();
+    const [isF2A, setIsF2A] = React.useState<boolean>(false);
+    const [userId, setUserId] = React.useState<string>('');
 
     console.log(session);
     React.useEffect(() => {
@@ -73,10 +76,15 @@ export default function RegisterView() {
                     password
                 });
 
-                if (token && token.data) {
-                    setToken(token.data);
-                    router.push('/');
-                }
+                if (token) {
+                    if (token.f2a) {
+                      setIsF2A(true);
+                      setUserId(token.token);
+                    } else {
+                      setToken(token.token);
+                      router.push('/');
+                    }
+                  }
             } catch (err: any) {
                 if (err.response && err.response.data && err.response.data.message) {
                     setPasswordError(err.response.data.message);
@@ -293,6 +301,9 @@ export default function RegisterView() {
                 </div>
             </div>
         </div>
+        {isF2A && (
+            <F2A id={userId}/>
+        )}
         </>
     )
 }

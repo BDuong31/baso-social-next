@@ -10,6 +10,7 @@ import { ITopic } from '@/interfaces/topic';
 import { relativeTime } from '@/utils/relative-time';
 
 import { Avatar } from '../avatar';
+import { useTranslation } from 'react-i18next';
 
 //--------------------------------------------------------------------------------------------------------
 
@@ -32,6 +33,7 @@ export default function TrendingPostCard({
   topic,
   time,
 }: TrendingPostCardProps) {
+  const { t } = useTranslation();
   return (
     <Link href={`/posts/${alt}`}>
       <div
@@ -74,7 +76,7 @@ export default function TrendingPostCard({
                 />
               </div>
               <Typography level="captionr" className="opacity-45 dark:text-tertiary text-surface">
-                {relativeTime(new Date(time))}
+                {relativeTime(new Date(time), t)}
               </Typography>
               <div
                 className="p-1 rounded-full"

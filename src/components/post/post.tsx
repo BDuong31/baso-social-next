@@ -217,7 +217,7 @@ export default function Post({
               level="captionr"
               className="dark:text-tertiary text-surface justify-self-start grow opacity-45"
             >
-              {relativeTime(new Date(localData.createdAt))}
+              {relativeTime(new Date(localData.createdAt), t)}
             </Typography>
             {data.author.id === (userProfile as IUserProfile).id && (
               <MoreIcon onClick={handleMoreOptions} />

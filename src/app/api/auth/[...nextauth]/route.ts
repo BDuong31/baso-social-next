@@ -28,7 +28,7 @@ const authOptions = {
       return session;
     },
   },
-  secret:'http://basospark.youthscience.club',
+  secret:'http://localhost:3001',
 };
 
 // ✅ Dùng `NextAuth()` đúng cách

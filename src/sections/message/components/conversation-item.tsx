@@ -45,7 +45,7 @@ export default function ConversationItem({
           className="dark:text-primary text-surface-3 mr-6 flex flex-row-reverse items-center gap-2"
         >
           <Typography level="base2r" className="dark:text-tertiary text-surface opacity-50">
-            {conversation.messages?.createdAt == null ? '' : relativeTime(new Date(conversation.messages?.createdAt))}
+            {conversation.messages?.createdAt ? relativeTime(new Date(conversation.messages?.createdAt), t) : ''}
           </Typography>
           {conversation?.messager.lastName} {conversation?.messager.firstName}
         </Typography>
@@ -54,7 +54,7 @@ export default function ConversationItem({
           level="captionr"
           className="dark:text-tertiary text-surface col-span-2 opacity-80 mr-6 line-clamp-1 dark:group-hover:text-primary group-hover:text-surface-3"
         >
-          {userProfile.userProfile?.id === conversation.messages?.senderId ? t('You: ') : "" } {conversation.messages?.content}
+          {userProfile.userProfile?.id === conversation.messages?.senderId ? t('You: '): "" } {conversation.messages?.content}
         </Typography>
       </div>
     </div>

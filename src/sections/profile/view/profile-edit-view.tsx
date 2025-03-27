@@ -12,6 +12,7 @@ import AvatarProfile from '@/components/avatar/avatar-profile';
 import { EditForm, HeaderEdit } from '../profile-edit-components';
 import { AvatarUpdateDialog } from '@/components/avatar';
 import { uploadImage } from '@/apis/media';
+import { profile } from 'node:console';
 
 //----------------------------------------------------------------
 

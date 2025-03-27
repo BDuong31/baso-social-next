@@ -36,6 +36,7 @@ export default function HomeView() {
   >(null);
   
     const { userProfile: user } = useUserProfile();
+    console.log('user', user);
     const { t, i18n } = useTranslation();
   
     const changeLanguage = (lng: string) => {

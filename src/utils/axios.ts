@@ -6,6 +6,8 @@ import { useRouter } from 'next/navigation';
 import { HOST_API } from '../global-config';
 import { get } from 'http';
 import { read } from 'fs';
+import { updatePassword } from '@/apis/user';
+import { verify } from 'crypto';
 
 const axiosInstance = axios.create({ baseURL: HOST_API });
 
@@ -51,6 +53,8 @@ export const endpoints = {
         login: `${VERSION_PREFIX}/authenticate`,
         register: `${VERSION_PREFIX}/register`,
         googleLogin: `${VERSION_PREFIX}/google-login`,
+        f2a: (id: string) => `${VERSION_PREFIX}/users/${id}/2fa`,
+        verifyF2a:(id: string) => `${VERSION_PREFIX}/users/${id}/2fa`,
     },
 
     user: {

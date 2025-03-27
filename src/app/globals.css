@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 .font-inter {
   @apply font-sans;
   font-family: 'Inter', sans-serif;

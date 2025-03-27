@@ -187,7 +187,7 @@ export default function NewPost({ onBack }: INewPostProps) {
                       <Image
                         src={previewUrl}
                         alt="Preview"
-                        className="m-w-[400px] m-h-[400px] object-cover rounded-button"
+                        className="m-w-[400px] m-h-[400px] object-cover rounded"
                         width={300}
                         height={200}
                       />

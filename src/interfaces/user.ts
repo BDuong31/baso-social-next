@@ -21,6 +21,8 @@ export interface IUserProfile {
   phone: string;
   role: string;
   bio?: string;
+  f2a: boolean;
+  secret?: string;
   websiteUrl?: string;
   followerCount: number;
   postCount: number;
@@ -29,4 +31,9 @@ export interface IUserProfile {
   updatedAt: string;
   posts?: IPost[];
   media?: IImage[];
+}
+
+export interface IUserUpdatePassword {
+  oldPassword: string;
+  password: string;
 }

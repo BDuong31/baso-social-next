@@ -195,14 +195,15 @@ export function UserSection({ isExpanded, user }: UserSectionProps) {
   const toggleMoreOptions = () => {
     setIsMoreOptions(!isMoreOptions);
   };
-
-  const handleLogout = () => {
+  
+  const handleLogout = async () => {
     if (session) {
-      signOut();
+      await signOut({ redirect: false });
+      window.location.reload(); // Buộc load lại trang để cập nhật session
     }
     auth.setToken(null);
   };
-
+  
   return (
     <>
       <div

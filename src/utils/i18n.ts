@@ -16,7 +16,7 @@ i18n
             escapeValue: false,
         },
         backend: {
-            loadPath: '/locales/{{lng}}/common.json',
+            loadPath: '/locales/{{lng}}/common.json', // Đặt file dịch trong thư mục public/locales/
         },
         detection: {
             order: ['querystring', 'cookie', 'localStorage', 'navigator', 'htmlTag'],

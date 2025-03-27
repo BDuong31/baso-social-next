@@ -1,8 +1,8 @@
 import { useTranslation } from "react-i18next";
 import '@/utils/i18n';
 
-export const relativeTime = (isoString: Date): string => {
-    const { t } = useTranslation();
+export const relativeTime = (isoString: Date, t: any): string => {
+    // const { t } = useTranslation();
     const data = new Date(isoString);
     const now = new Date();
 

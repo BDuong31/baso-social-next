@@ -254,7 +254,6 @@
   
   .textSizeSlider input[type='range'] {
     -webkit-appearance: none;
-    /* Remove default styling */
     appearance: none;
     width: 100%;
     height: 2px;

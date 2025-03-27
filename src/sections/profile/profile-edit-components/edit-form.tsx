@@ -13,6 +13,7 @@ import {
 import { DebouncedInput } from '@/components/input';
 import { Typography } from '@/components/typography';
 import { useTranslation } from 'react-i18next';
+import { useUserProfile } from '@/context/user-context';
 
 //----------------------------------------------------------------
 

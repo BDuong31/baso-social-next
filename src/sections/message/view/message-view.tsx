@@ -38,12 +38,26 @@ interface ISent {
   receiverId: string;
   message: string;
 }
+interface IChatRoomResponse {
+  result: IChatRoom[];
+}
+
+const dataMessage = {
+  user: {
+    id: '',
+    avatarUrl: '',
+    name: '',
+  },
+  roomId: '',
+  content: '',
+  time: '',
+}
 
 interface IChatRoomResponse {
   result: IChatRoom[];
 }
 
-let socket = io('http://basospark.youthscience.club/apis/chat', { transports: ['websocket'] });
+let socket = io('http://localhost:3000/chat', { transports: ['websocket'] });
 
 export default function Message() {
 
@@ -65,7 +79,37 @@ export default function Message() {
       try {
         const response = (await getChatRooms()) as unknown as IChatRoomResponse;
         if (Array.isArray(response?.result)) {
-          setChatRooms(response?.result);
+          console.log(response.result);
+          const chatRoomsData = response.result.map((room: any) => ({
+            id: room.id,
+            creatorId: room.creatorId,
+            receiverId: room.receiverId,
+            type: room.type,
+            status: room.status,
+            messager: {
+              id: room.messager.id ?? '',
+              username: room.messager.username ?? '',
+              firstName: room.messager.firstName ?? '',
+              lastName: room.messager.lastName ?? '',
+              avatar: room.messager.avatar ?? '',
+            },
+            messages: room.messages ? {
+              id : room.messages?.id ?? '',
+              roomId: room.messages?.roomId ?? '',
+              senderId: room.messages?.senderId ?? '',
+              content: room.messages?.content ?? '',
+              createdAt: room.messages?.createdAt ?? '',
+              updatedAt: room.messages?.updatedAt ?? '',
+            } : {
+              id: '',
+              roomId: '',
+              senderId: '',
+              content: '',
+              createdAt: '',
+              updatedAt: '',
+            }
+          }));
+          setChatRooms(chatRoomsData as IChatRoom[]);
         } else {
           console.error('Unexpected response format:', response);
         }
@@ -78,17 +122,19 @@ export default function Message() {
     fetchChatRooms();
   }, []);
 
+  console.log('chatRooms:', chatRooms);
+
   React.useEffect(() => {
     const fetchConversation = async () => {
       //console.log('fetching conversation: ', chatRoom.id);
       try {
         const response = await axiosInstance.get<ChatMessage[]>(endpoints.chat.getMessages(selectedConversationId));
+        console.log('fetching conversation: ', endpoints.chat.getMessages(selectedConversationId));
+        console.log(Conversation)
         const messagesData = response.data.map((message: any) => ({
           user: {
             id: message.senderId ?? '',
-            avatarUrl: message.senderId === userProfile.userProfile?.id 
-            ? userProfile.userProfile?.avatar ?? "/default-avatar.png" 
-            : chatRoom?.messager.avatar ?? "/default-avatar.png",                      
+            avatarUrl: message.senderId === userProfile.userProfile?.id ? userProfile.userProfile?.avatar ?? "/default-avatar.png" : chatRoom?.messager.avatar ?? "/default-avatar.png",                      
             name: message.senderId === userProfile.userProfile?.id ? `${userProfile.userProfile?.lastName} ${userProfile.userProfile?.firstName}` : `${chatRoom?.messager.lastName} ${chatRoom?.messager.firstName}`,
           },
           roomId: message.roomId,
@@ -111,6 +157,7 @@ export default function Message() {
 
       setChatRooms((prev) => {
         const index = prev.findIndex((room) => room.id === msg.roomId);
+
         if (index !== -1) {
           const newChatRooms = [...prev];
           newChatRooms[index].messages.content = msg.message;
@@ -194,7 +241,7 @@ export default function Message() {
 
   const handleBack = () => {
     setShowDetailOnly(false);
-    setSelectedConversationId(null);
+    setSelectedConversationId('');
   };
 
   if (loading) {
