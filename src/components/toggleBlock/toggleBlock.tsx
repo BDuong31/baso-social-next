@@ -1,26 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-interface Props{
-  check: boolean;
+interface Props {
+  check?: boolean; // Giá trị ban đầu, mặc định là false nếu không truyền vào
+  onChange?: (checked: boolean) => void; // Hàm callback khi thay đổi trạng thái
 }
-const Switch = (
-  {check}: Props
-) => {
+
+const Switch = ({ check = false, onChange }: Props) => {
+  const [isChecked, setIsChecked] = useState(check);
+
+  const handleToggle = () => {
+    const newChecked = !isChecked;
+    setIsChecked(newChecked);
+    onChange && onChange(newChecked); // Gọi callback nếu có
+  };
+
   return (
     <StyledWrapper>
       <div>
         <label className="switch">
-          <input type="checkbox" checked={check}/>
+          <input type="checkbox" checked={isChecked} onChange={handleToggle} />
           <span>
             <em />
-            {/* <strong /> */}
           </span>
         </label>
       </div>
     </StyledWrapper>
   );
-}
+};
 
 const StyledWrapper = styled.div`
   .switch {
@@ -91,52 +98,6 @@ const StyledWrapper = styled.div`
     top: 50%;
     margin: -1px 0 0 -1px;
   }
-  .switch input + span em:after {
-    content: "";
-    display: block;
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    border: 1px solid #99a3ba;
-    border-bottom: 0;
-    width: 6px;
-    height: 4px;
-    left: 1px;
-    bottom: 6px;
-    position: absolute;
-    z-index: 1;
-    transform-origin: 0 100%;
-    transition: all 0.45s ease;
-    transform: rotate(-35deg) translate(0, 1px);
-  }
-  .switch input + span strong {
-    font-weight: normal;
-    position: relative;
-    display: block;
-    top: 1px;
-  }
-  .switch input + span strong:before,
-  .switch input + span strong:after {
-    font-size: 14px;
-    font-weight: 500;
-    display: block;
-    font-family: "Mukta Malar", Arial;
-    -webkit-backface-visibility: hidden;
-  }
-  .switch input + span strong:before {
-    content: "Unlocked";
-    transition: all 0.3s ease 0.2s;
-  }
-  .switch input + span strong:after {
-    content: "Locked";
-    opacity: 0;
-    visibility: hidden;
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: #02923c;
-    transition: all 0.3s ease;
-    transform: translate(2px, 0);
-  }
   .switch input:checked + span:before {
     background: #eae7e7;
   }
@@ -148,26 +109,6 @@ const StyledWrapper = styled.div`
     transform: translate(18px, 0);
     background: #02923c;
   }
-  .switch input:checked + span em:after {
-    border-color: #02923c;
-    transform: rotate(0deg) translate(0, 0);
-  }
-  .switch input:checked + span strong:before {
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.3s ease;
-    transform: translate(-2px, 0);
-  }
-  .switch input:checked + span strong:after {
-    opacity: 1;
-    visibility: visible;
-    transform: translate(0, 0);
-    transition: all 0.3s ease 0.2s;
-  }
-
-  .switch :before,
-  :after {
-    box-sizing: border-box;
-  }`;
+`;
 
 export default Switch;

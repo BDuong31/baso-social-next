@@ -15,7 +15,7 @@ import axiosInstance, { endpoints } from '@/utils/axios';
 import { ChatMessage } from '@/schema/chat-messages-schema';
 import { useUserProfile } from '@/context/user-context';
 import { io } from 'socket.io-client';
-import { set } from 'zod';
+import { on } from 'node:events';
 
 //-----------------------------------------------------------------------------------------------
 
@@ -57,8 +57,13 @@ interface IChatRoomResponse {
   result: IChatRoom[];
 }
 
-let socket = io('http://localhost:3000/chat', { transports: ['websocket'] });
-
+let socket = io('https://basospark.youthscience.club/chat', {
+  transports: ['websocket'],
+  secure: true,
+  reconnection: true,
+  reconnectionAttempts: 5,
+  reconnectionDelay: 1000,       
+});
 export default function Message() {
 
   const userProfile = useUserProfile();
@@ -68,6 +73,7 @@ export default function Message() {
   const [chatRoom, setChatRoom] = React.useState<IChatRoom>();
   const [loading, setLoading] = React.useState<boolean>(true);
   const [selectedConversationId, setSelectedConversationId] = React.useState<string>('');
+  const [ onlineUsers, setOnlineUsers] = React.useState<string[]>([]);
   const [ Conversation, setConversation] = React.useState<IMessage[]>([]);
   const selectedChatRoom = chatRooms.find((room) => room.id === selectedConversationId);
 
@@ -92,6 +98,7 @@ export default function Message() {
               firstName: room.messager.firstName ?? '',
               lastName: room.messager.lastName ?? '',
               avatar: room.messager.avatar ?? '',
+              online: onlineUsers.includes(room.messager.id) ? true : false,
             },
             messages: room.messages ? {
               id : room.messages?.id ?? '',
@@ -120,7 +127,7 @@ export default function Message() {
       }
     };
     fetchChatRooms();
-  }, []);
+  }, [onlineUsers]);
 
   console.log('chatRooms:', chatRooms);
 
@@ -152,6 +159,11 @@ export default function Message() {
 
   React.useEffect(() => {
     socket.emit('register', { userId: userProfile.userProfile?.id });
+
+    socket.on('onlineUsers', (users) => {
+      console.log('online users:', users);
+      setOnlineUsers(users);
+    });
 
     socket.on('message', (msg) => {
 

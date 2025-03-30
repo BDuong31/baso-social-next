@@ -1,4 +1,7 @@
+import { useTheme } from "next-themes";
+
 const OfflineIcon = () => {
+  const { theme } = useTheme(); // Access the current theme
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -13,7 +16,9 @@ const OfflineIcon = () => {
             cx="6"
             cy="6"
             r="4.5"
-            stroke="url(#paint0_linear_12308_97799)"
+            stroke={
+              theme === "dark" ? "url(#paint0_linear_dark)" : "url(#paint0_linear_light)"
+            }
             strokeWidth="3"
           />
         </g>
@@ -84,15 +89,26 @@ const OfflineIcon = () => {
           />
         </filter>
         <linearGradient
-          id="paint0_linear_12308_97799"
+          id="paint0_linear_dark"
           x1="6"
           y1="0"
           x2="6"
           y2="12"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#F8F8F8" stopOpacity="0.9" />
-          <stop offset="1" stopColor="#F8F8F8" stopOpacity="0.3" />
+          <stop stopColor="#F8F8F8" stopOpacity="1" />
+          <stop offset="1" stopColor="#F8F8F8" stopOpacity="0.8" />
+        </linearGradient>
+        <linearGradient
+          id="paint0_linear_light"
+          x1="6"
+          y1="0"
+          x2="6"
+          y2="12"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#1F1F1F" stopOpacity="1" />
+          <stop offset="1" stopColor="#1F1F1F" stopOpacity="0.8" />
         </linearGradient>
       </defs>
     </svg>

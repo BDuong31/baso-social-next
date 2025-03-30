@@ -4,6 +4,7 @@ export interface IMessager {
     firstName: string;
     lastName: string;
     avatar: string | null;
+    online: boolean;
   }
 export interface IChatMessage {
   id: string;

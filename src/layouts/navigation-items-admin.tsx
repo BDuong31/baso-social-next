@@ -19,13 +19,13 @@ export const NAVIGATION_ITEMS = () => {
       path: '/admin',
     },
     {
-      title: 'User',
+      title: t('user'),
       //update: { status: true, count: 1 },
       Icon: <UserIcon />,
       path: '/admin/user',
     },
     {
-      title: 'Posts',
+      title: t('posts'),
       Icon: <EditIcon />,
       path: '/admin/posts',
     },

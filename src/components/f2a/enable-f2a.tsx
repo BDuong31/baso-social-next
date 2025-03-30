@@ -25,6 +25,9 @@ import { verifyF2a } from '@/apis/auth';
 import { setToken } from '@/utils/token-store';
 import { useAuth } from '@/context/auth-context';
 import { CopyIcon } from 'lucide-react';
+import { useUserProfile } from '@/context/user-context';
+import QRCodeStyling from "qr-code-styling";
+
 //----------------------------------------------------------------------------------
 
 interface F2AProps {
@@ -38,11 +41,40 @@ export default function ENF2A({ secret, qrcode, onClose }: F2AProps) {
   const router = useRouter();
   const [otpError, setOtpError] = React.useState(false);
   const [loading, setLoading] = React.useState(false);
+  const [qrCode, setQrCode] = React.useState<QRCodeStyling | null>(null);
+  const qrRef = React.useRef<HTMLDivElement>(null);
+  const { userProfile } = useUserProfile();
   const { t } = useTranslation();
 
   if (loading) {
     return <SplashScreen />;
   }
+
+      React.useEffect(() => {
+              const profileUrl = `otpauth://totp/BasoSocial (${userProfile.username})?secret=${secret}&issuer=BasoSocial`;
+              console.log("Profile URL:", profileUrl);
+
+              const qr = new QRCodeStyling({
+                  width: 250,
+                  height: 250,
+                  type: "canvas",
+                  data: profileUrl,
+                  image: '/img/logo.png',  // Sử dụng giá trị của base64Logo
+                  dotsOptions: { color: "black", type: "rounded" },
+                  cornersDotOptions: { type: "dot" },
+                  backgroundOptions: { color: "#ffffff" },
+                  imageOptions: { crossOrigin: "anonymous", margin: 10 }
+              });
+      
+              console.log("QR Object:", qr);
+              setQrCode(qr);
+      
+              qrRef.current.innerHTML = "";
+              qr.append(qrRef.current);
+      
+              console.log("QR Ref Content:", qrRef.current);
+      }, [secret]);    
+  
   return (
     <div className="fixed w-full h-full top-0 left-0 dark:bg-[#444444] bg-[#444444] z-20 dark:md:bg-[#12121299] md:bg-[#12121299] shadow-stack">
       <div className="w-full h-full relative shadow-button dark:bg-[#282828b3] bg-neutral1-70 backdrop-blur-[50px] before:content-[''] before:absolute before:inset-0 before:pointer-events-none before:border-[1.5px] before:border-[#ffffff1a] before:[mask-image:linear-gradient(175deg,#000,transparent_50%)] md:mx-auto md:w-[550px] md:h-[auto] md:mt-[10%] md:rounded-button md:before:rounded-button ">
@@ -60,7 +92,7 @@ export default function ENF2A({ secret, qrcode, onClose }: F2AProps) {
             </div>
             <div style={{scrollbarWidth: "none"}} className='md:max-h-[372px] mt-[12px] relative scroll-smooth overflow-auto flex justify-center'>
               <div className=''>
-                <Image className='rounded-[10px]' src={qrcode} alt="qr code" width={180} height={180} />
+                <div ref={qrRef} className='w-[250px] h-[250px] md:w-[300px] md:h-[300px] bg-white rounded-[1.25rem] shadow-button flex items-center justify-center'></div>
               </div>
             </div>
             <div className="flex items-center my-4">

@@ -23,24 +23,6 @@ export default function ExploreCard({ post }: IExploreCardProps) {
       href={`/posts/${post.id}`}
       className="group w-full min-w-[17.5rem] flex flex-col rounded-[20px] p-3 dark:bg-neutral2-2 bg-neutral1-30 gap-3 md:items-start md:justify-center dark:md:hover:bg-hover md:hover:bg-neutral1-60"
     >
-        <Image
-        src='https://basospark.youthscience.club/apis/uploads/18364000000_AÌnh maÌn hiÌnh 2025-03-03 luÌc 00.24.20.png'
-        alt={
-          'Image post by user ' +
-          post.author.username +
-          ' with topic ' +
-          post.topic?.name
-        }
-        height={500}
-        width={900}
-        style={{
-          objectFit: 'cover',
-          minHeight: '212px',
-          maxHeight: '212px',
-          width: '100%',
-        }}
-        className="rounded-xl gap-2 justify-start items-center object-cover"
-      />
       <Image
         src={post.image} 
         alt={

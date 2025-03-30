@@ -19,18 +19,26 @@ const UserProfileContext = React.createContext<
   UserProfileContextType | undefined
 >(undefined);
 
+
 export function ProfileProvider({ children }: { children: React.ReactNode }) {
   const [userProfile, setUserProfile] = React.useState<IUserProfile | null>(
     null
   );
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState<Error | null>(null);
-
+  let socket = io('https://basospark.youthscience.club/chat', {
+      transports: ['websocket'],
+      secure: true,
+      reconnection: true,
+      reconnectionAttempts: 5,
+      reconnectionDelay: 1000,       
+  });
   const fetchUserProfile = async () => {
     setLoading(true);
     try {
       const res = await getUserProfile();
       setUserProfile(res.data);
+      socket.emit('register', { userId: res.data?.id });
       setError(null);
     } catch (err) {
       setError(err as Error);
@@ -41,6 +49,7 @@ export function ProfileProvider({ children }: { children: React.ReactNode }) {
 
   React.useEffect(() => {
     fetchUserProfile();
+
   }, []);
 
   return (

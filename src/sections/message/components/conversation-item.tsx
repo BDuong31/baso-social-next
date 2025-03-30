@@ -1,8 +1,10 @@
 import { Avatar } from '@/components/avatar';
+import { OfflineIcon, OnlineIcon } from '@/components/icons';
 import { Typography } from '@/components/typography';
 import { useUserProfile } from '@/context/user-context';
 import { IChatRoom } from '@/interfaces/message';
 import { relativeTime } from '@/utils/relative-time';
+import { useTheme } from 'next-themes';
 import { useTranslation } from 'react-i18next';
 //----------------------------------------------------------------------
 
@@ -19,6 +21,7 @@ export default function ConversationItem({
 }: IConversationItemProps) {
   const { t } = useTranslation();
   const userProfile = useUserProfile();
+  const { theme, systemTheme} = useTheme();
   //console.log(conversation);
   //console.log(userProfile.userProfile?.id);
   return (
@@ -38,7 +41,22 @@ export default function ConversationItem({
           <circle cx="12" cy="12" r="6" fill="#55F08B" />
         </svg>
       )}
-      <Avatar src={conversation?.messager.avatar ?? ''} alt="avatar" />
+<div className="relative">
+  {/* Trạng thái Online/Offline */}
+  <div className="absolute z-10">
+    {conversation?.messager.online ? <OnlineIcon /> : <OfflineIcon />}
+  </div>
+
+  {/* Avatar với clip-path */}
+  <div className={theme === "light" ? "relative after:z-1 after:content-[''] after:absolute after:w-[16px] after:h-[16px] after:right-[30px] after:bottom-[30px] after:rounded-full after:bg-[#ebebed]" : theme ==="dark" ? "relative after:z-1 after:content-[''] after:absolute after:w-[16px] after:h-[16px] after:right-[30px] after:bottom-[30px] after:rounded-full after:bg-[#313131]" : systemTheme === "light" ? "relative after:z-1 after:content-[''] after:absolute after:w-[16px] after:h-[16px] after:right-[30px] after:bottom-[30px] after:rounded-full after:bg-[#ebebed]" : "relative after:z-1 after:content-[''] after:absolute after:w-[16px] after:h-[16px] after:right-[30px] after:bottom-[30px] after:rounded-full after:bg-[#313131]"}>
+  <Avatar
+    className="object-cover"
+    src={conversation?.messager.avatar ?? ''}
+    alt="avatar"
+  />
+  </div>
+</div>
+
       <div className="flex flex-col items-start justify-center gap-1">
         <Typography
           level="base2sm"

@@ -62,6 +62,8 @@ export const endpoints = {
         getListUser: `${VERSION_PREFIX}/rpc/users/list-by-ids`,
         create: `${VERSION_PREFIX}/users`,
         update: `${VERSION_PREFIX}/profile`,
+        adminUpdate : (id: string) => `${VERSION_PREFIX}/users/${id}`,
+        delete: (id: string) => `${VERSION_PREFIX}/users/${id}`,
         updatePassword: `${VERSION_PREFIX}/update-password`,
         profile: `${VERSION_PREFIX}/profile`,
         bookmark: (id: string) => `${VERSION_PREFIX}/users/${id}/saved-posts`,
@@ -93,6 +95,7 @@ export const endpoints = {
         get: `${VERSION_PREFIX}/topics`,
         detail: `${VERSION_PREFIX}/topics/:id`,
         create: `${VERSION_PREFIX}/topics`,
+        delete: (id: string) => `${VERSION_PREFIX}/topics/${id}`,
     },
 
     notification: {

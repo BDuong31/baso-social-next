@@ -1,4 +1,8 @@
+import { useTheme } from "next-themes";
+
 const OnlineIcon = () => {
+  const { theme } = useTheme(); // Access the current theme
+
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -9,7 +13,17 @@ const OnlineIcon = () => {
     >
       <g filter="url(#filter0_b_12308_97777)">
         <g filter="url(#filter1_bi_12308_97777)">
-          <circle cx="6" cy="6" r="6" fill="url(#paint0_linear_12308_97777)" />
+          <circle
+            cx="6"
+            cy="6"
+            r="6"
+            // Dynamically apply the gradient based on the theme
+            className={
+              theme === "dark"
+                ? "fill-[url(#paint0_linear_dark)]"
+                : "fill-[url(#paint0_linear_light)]"
+            }
+          />
         </g>
       </g>
       <defs>
@@ -78,15 +92,26 @@ const OnlineIcon = () => {
           />
         </filter>
         <linearGradient
-          id="paint0_linear_12308_97777"
+          id="paint0_linear_dark"
           x1="6"
           y1="0"
           x2="6"
           y2="12"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#F8F8F8" stopOpacity="0.9" />
-          <stop offset="1" stop-color="#F8F8F8" stopOpacity="0.3" />
+          <stop stopColor="#F8F8F8" stopOpacity="1" />
+          <stop offset="1" stopColor="#F8F8F8" stopOpacity="0.8" />
+        </linearGradient>
+        <linearGradient
+          id="paint0_linear_light"
+          x1="6"
+          y1="0"
+          x2="6"
+          y2="12"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#1F1F1F" stopOpacity="1" />
+          <stop offset="1" stopColor="#1F1F1F" stopOpacity="0.8" />
         </linearGradient>
       </defs>
     </svg>

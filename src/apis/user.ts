@@ -47,6 +47,24 @@ export const updateUserProfile = async (
   return data;
 };
 
+export const adminUpdateUserProfile = async (
+  id: string,
+  profileData: Partial<IUserProfile>
+): Promise<IApiResponse<IUserProfile>> => {
+  const { data } = await axiosInstance.patch(
+    endpoints.user.adminUpdate(id),
+    profileData
+  );
+  return data;
+};
+
+export const deleteUserProfile = async (
+  id: string
+): Promise<IApiResponse<IUserProfile>> => {
+  const { data } = await axiosInstance.delete(endpoints.user.delete(id));
+  return data;
+};
+
 export const updatePassword = async (
   data: { oldpassword: string; password: string }
 ): Promise<IApiResponse<IUserProfile>> => {
